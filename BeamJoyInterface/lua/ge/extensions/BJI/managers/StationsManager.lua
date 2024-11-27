@@ -1,5 +1,5 @@
 local M = {
-    renderStationDistance = 50,
+    renderStationDistance = 150,
     COLORS = {
         GARAGE = ShapeDrawer.Color(1, .4, 0, .5),
         ENERGY = ShapeDrawer.Color(.2, 1, .2, .5),
@@ -48,7 +48,6 @@ local function detectChunk(ctxt)
     for i = M.detectionProcess, target do
         local s = M.detectionStations[i]
         if s and
-            --GetHorizontalDistance(s.pos, ctxt.vehPosRot.pos) <= s.radius then
             ctxt.vehPosRot.pos:distance(s.pos) - (ctxt.veh:getInitialWidth() / 2) <= s.radius then
             if not s.types then
                 M.station = s
@@ -85,11 +84,14 @@ local function renderStations(ctxt)
         not BJIContext.Scenario.GaragesEdit then
         for _, g in pairs(BJIContext.Scenario.Data.Garages) do
             if ownPos:distance(g.pos) <= M.renderStationDistance then
-                ShapeDrawer.Sphere(g.pos, g.radius, M.COLORS.GARAGE)
+                local bottomPos = vec3(g.pos)
+                local topPos = vec3(g.pos)
+                topPos.z = topPos.z + g.radius * 2
+                ShapeDrawer.Cylinder(bottomPos, topPos, g.radius, M.COLORS.GARAGE)
                 local textPos = vec3(g.pos)
-                local zOffset = g.radius
+                local zOffset = g.radius * 2
                 if ctxt.veh then
-                    zOffset = ctxt.veh:getInitialHeight() * 1.5
+                    zOffset = ctxt.veh:getInitialHeight() * 0.5
                 end
                 textPos.z = textPos.z + zOffset
                 ShapeDrawer.Text(g.name, textPos, M.COLORS.TEXT, M.COLORS.BG)
@@ -112,9 +114,12 @@ local function renderStations(ctxt)
                         end
                     end
                     if compatible then
-                        ShapeDrawer.Sphere(s.pos, s.radius, M.COLORS.ENERGY)
+                        local bottomPos = vec3(s.pos)
+                        local topPos = vec3(s.pos)
+                        topPos.z = topPos.z + s.radius * 2
+                        ShapeDrawer.Cylinder(bottomPos, topPos, s.radius, M.COLORS.ENERGY)
                         local textPos = vec3(s.pos)
-                        textPos.z = textPos.z + ctxt.veh:getInitialHeight() * 1.5
+                        textPos.z = textPos.z + ctxt.veh:getInitialHeight() * 0.5
                         ShapeDrawer.Text(s.name, textPos, M.COLORS.TEXT, M.COLORS.BG)
                     end
                 end
