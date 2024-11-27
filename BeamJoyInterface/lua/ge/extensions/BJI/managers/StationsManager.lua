@@ -1,7 +1,7 @@
 local M = {
     renderStationDistance = 150,
-    cylinderBottomHeight = 0.1, -- bottom height adjustment
-    cylinderTopHeight = 1.0, -- top height adjustment
+    cylinderBottomHeight = -1.0, -- bottom height adjustment
+    cylinderTopHeight = 3.0, -- top height adjustment
     COLORS = {
         GARAGE = ShapeDrawer.Color(1, .4, 0, .3),
         ENERGY = ShapeDrawer.Color(.2, 1, .2, .3),
