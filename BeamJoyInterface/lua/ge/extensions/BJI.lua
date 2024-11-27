@@ -81,7 +81,7 @@ local function loadManagers()
     BJIAI = require("ge/extensions/BJI/managers/AIManager")
     BJIPopup = require("ge/extensions/BJI/managers/PopupManager")
     BJIStations = require("ge/extensions/BJI/managers/StationsManager")
-    BJICollisions = require("ge/extensions/BJI/managers/CollisionsManager")
+    --BJICollisions = require("ge/extensions/BJI/managers/CollisionsManager")
 
     BJIRaceUI = require("ge/extensions/BJI/managers/RaceUIManager")
     BJIBusUI = require("ge/extensions/BJI/managers/BusUIManager")
