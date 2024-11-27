@@ -1,6 +1,7 @@
 local M = {
     renderStationDistance = 150,
-    cylinderHeight = 1, -- added cylinder height
+    cylinderBottomHeight = 0.1, -- bottom height adjustment
+    cylinderTopHeight = 1.0, -- top height adjustment
     COLORS = {
         GARAGE = ShapeDrawer.Color(1, .4, 0, .3),
         ENERGY = ShapeDrawer.Color(.2, 1, .2, .3),
@@ -86,11 +87,12 @@ local function renderStations(ctxt)
         for _, g in pairs(BJIContext.Scenario.Data.Garages) do
             if ownPos:distance(g.pos) <= M.renderStationDistance then
                 local bottomPos = vec3(g.pos)
+                bottomPos.z = bottomPos.z + M.cylinderBottomHeight
                 local topPos = vec3(g.pos)
-                topPos.z = topPos.z + M.cylinderHeight
+                topPos.z = topPos.z + M.cylinderTopHeight
                 ShapeDrawer.Cylinder(bottomPos, topPos, g.radius, M.COLORS.GARAGE)
                 local textPos = vec3(g.pos)
-                local zOffset = M.cylinderHeight * 0.5
+                local zOffset = M.cylinderTopHeight * 0.5
                 if ctxt.veh then
                     zOffset = ctxt.veh:getInitialHeight() * 0.5
                 end
@@ -116,8 +118,9 @@ local function renderStations(ctxt)
                     end
                     if compatible then
                         local bottomPos = vec3(s.pos)
+                        bottomPos.z = bottomPos.z + M.cylinderBottomHeight
                         local topPos = vec3(s.pos)
-                        topPos.z = topPos.z + M.cylinderHeight
+                        topPos.z = topPos.z + M.cylinderTopHeight
                         ShapeDrawer.Cylinder(bottomPos, topPos, s.radius, M.COLORS.ENERGY)
                         local textPos = vec3(s.pos)
                         textPos.z = textPos.z + ctxt.veh:getInitialHeight() * 0.5
