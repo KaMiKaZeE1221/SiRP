@@ -1,10 +1,10 @@
 local M = {
     renderStationDistance = 50,
     COLORS = {
-        GARAGE = ShapeDrawer.Color(1, .4, 0, .7),
-        ENERGY = ShapeDrawer.Color(.2, 1, .2, .7),
-        TEXT = ShapeDrawer.Color(1, 1, 1, .7),
-        BG = ShapeDrawer.Color(0, 0, 0, .7),
+        GARAGE = ShapeDrawer.Color(1, .4, 0, .5),
+        ENERGY = ShapeDrawer.Color(.2, 1, .2, .5),
+        TEXT = ShapeDrawer.Color(1, 1, 1, .5),
+        BG = ShapeDrawer.Color(0, 0, 0, .5),
     },
 
     station = nil,
