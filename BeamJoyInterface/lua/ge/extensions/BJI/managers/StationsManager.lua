@@ -1,10 +1,11 @@
 local M = {
     renderStationDistance = 150,
+    cylinderHeight = 1, -- added cylinder height
     COLORS = {
-        GARAGE = ShapeDrawer.Color(1, .4, 0, .5),
-        ENERGY = ShapeDrawer.Color(.2, 1, .2, .5),
-        TEXT = ShapeDrawer.Color(1, 1, 1, .5),
-        BG = ShapeDrawer.Color(0, 0, 0, .5),
+        GARAGE = ShapeDrawer.Color(1, .4, 0, .3),
+        ENERGY = ShapeDrawer.Color(.2, 1, .2, .3),
+        TEXT = ShapeDrawer.Color(1, 1, 1, 1),
+        BG = ShapeDrawer.Color(0, 0, 0, 1),
     },
 
     station = nil,
@@ -86,10 +87,10 @@ local function renderStations(ctxt)
             if ownPos:distance(g.pos) <= M.renderStationDistance then
                 local bottomPos = vec3(g.pos)
                 local topPos = vec3(g.pos)
-                topPos.z = topPos.z + g.radius * 2
+                topPos.z = topPos.z + M.cylinderHeight
                 ShapeDrawer.Cylinder(bottomPos, topPos, g.radius, M.COLORS.GARAGE)
                 local textPos = vec3(g.pos)
-                local zOffset = g.radius * 2
+                local zOffset = M.cylinderHeight * 0.5
                 if ctxt.veh then
                     zOffset = ctxt.veh:getInitialHeight() * 0.5
                 end
@@ -116,7 +117,7 @@ local function renderStations(ctxt)
                     if compatible then
                         local bottomPos = vec3(s.pos)
                         local topPos = vec3(s.pos)
-                        topPos.z = topPos.z + s.radius * 2
+                        topPos.z = topPos.z + M.cylinderHeight
                         ShapeDrawer.Cylinder(bottomPos, topPos, s.radius, M.COLORS.ENERGY)
                         local textPos = vec3(s.pos)
                         textPos.z = textPos.z + ctxt.veh:getInitialHeight() * 0.5
