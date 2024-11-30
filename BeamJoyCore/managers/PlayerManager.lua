@@ -1018,6 +1018,10 @@ local function consoleSetGroup(args)
     return svar(BJCLang.getConsoleMessage("command.groupAssigned"), { playerName = playerName, group = groupName })
 end
 
+local function init()
+    M.Data = BJCDao.vehicles.findAll()
+end
+
 M.savePlayer = savePlayer
 
 M.onVehicleSwitched = onVehicleSwitched

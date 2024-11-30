@@ -532,10 +532,7 @@
     },
     "playersBlock": {
       "waitingPlayers": "Wartende Spieler",
-      "players": "Spieler",
-      "buttons": {
-        "voteKick": "Abstimmung Kick"
-      }
+      "players": "Spieler"
     },
     "moderationBlock": {
       "waitingPlayers": "Wartende Spieler",
@@ -631,19 +628,6 @@
           "StepDelay": "Verzögerung zwischen Schritten (Sek.)",
           "EndTimeout": "Enddauer",
           "EndTimeoutTooltip": "Zeit in Sekunden zwischen dem Ende des letzten Spielers und dem Ende des Modus"
-        },
-        "hunter": {
-          "title": "Hunter Gamemode Einstellungen",
-          "PreparationTimeout": "Vorbereitungsdauer",
-          "PreparationTimeoutTooltip": "Zeit in Sekunden, in der Spieler dem Spielmodus beitreten können",
-          "HuntedStartDelay": "Flüchtiger Startverzögerung",
-          "HuntedStartDelayTooltip": "Countdown in Sekunden für die Flüchtigen",
-          "HuntersStartDelay": "Jäger Startverzögerung",
-          "HuntersStartDelayTooltip": "Countdown in Sekunden für die Jäger",
-          "HuntedStuckTimeout": "Flüchtiger Steckenbleib-Timeout",
-          "HuntedStuckTimeoutTooltip": "Zeit in Sekunden, die der Flüchtige stecken muss, damit die Jäger gewinnen",
-          "HuntersRespawnDelay": "Jäger Respawn Verzögerung",
-          "HuntersRespawnDelayTooltip": "Zeit in Sekunden, in der Jäger nach ihrem Respawn feststecken"
         },
         "vehicleDelivery": {
           "title": "Einstellungen für die Fahrzeuglieferung",
@@ -783,7 +767,6 @@
         "branch": "Zweig",
         "wpName": "Name",
         "radius": "Radius",
-        "bottomHeight": "Höhe Boden",
         "parent": "Eltern)",
         "parentStartTooltip": "Sie können in den nächsten Schritten auch „Start“ verwenden, um von Anfang an zu verzweigen",
         "addParent": "Übergeordnetes Element hinzufügen",
@@ -898,6 +881,7 @@
       }
     },
     "energyStations": {
+      "noStationAvailable": "Kein {stationName} in der Nähe...",
       "flashBatteryFilled": "Batterien geladen",
       "flashTankFilled": "Tank gefüllt",
       "noRefuelScenario": "In diesem Szenario können Sie Ihr Fahrzeug nicht betanken",
@@ -911,6 +895,7 @@
     },
     "garages": {
       "damagedWarning": "Ihr Fahrzeug ist beschädigt",
+      "noGarageAvailable": "Keine Garage in der Nähe...",
       "garage": "Garage",
       "repairBtn": "Fahrzeug reparieren",
       "flashVehicleRepaired": "Fahrzeug repariert",

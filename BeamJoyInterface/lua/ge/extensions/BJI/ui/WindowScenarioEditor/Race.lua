@@ -30,16 +30,16 @@ local function updateMarkers()
     local finishColor = ShapeDrawer.Color(.66, .66, 1, .5)
     local standColor = ShapeDrawer.Color(1, .66, 0, .5)
     for iStep, step in ipairs(raceEdit.steps) do
+        local color = cpColor
+        if iStep == #raceEdit.steps then
+            -- finish
+            color = finishColor
+        end
         for _, wp in ipairs(step) do
-            local color = cpColor
             if wp.stand then
-                -- stand overrides finish
+                -- stand color override finish
                 color = standColor
-            elseif iStep == #raceEdit.steps then
-                -- finish
-                color = finishColor
             end
-
             local parents = {}
             for _, parent in ipairs(wp.parents) do
                 table.insert(parents, parent)
@@ -47,7 +47,6 @@ local function updateMarkers()
             table.insert(waypoints, {
                 name = wp.name,
                 pos = wp.pos,
-                zMinOffset = wp.zOffset or 1,
                 radius = wp.radius,
                 color = color,
                 parents = parents,
@@ -135,7 +134,7 @@ local function saveRace(callback)
         local race = {
             id = raceEdit.id,
             author = raceEdit.author,
-            name = strim(raceEdit.name),
+            name = raceEdit.name,
             enabled = raceEdit.enabled,
             previewPosition = RoundPositionRotation({
                 pos = _vec3export(raceEdit.previewPosition.pos),
@@ -169,7 +168,6 @@ local function saveRace(callback)
                         name = wp.name,
                         parents = parents,
                         pos = _vec3export(wp.pos),
-                        zOffset = wp.zOffset,
                         rot = _quatexport(wp.rot),
                         radius = wp.radius,
                         stand = wp.stand,
@@ -289,20 +287,14 @@ local function reverseRace()
                                 -- loopable race (only reverse rotation)
                                 local newStepFinish = {}
                                 for iFinish, finish in ipairs(step) do
-                                    local newFinish = {
-                                        pos = vec3(finish.pos),
-                                        rot = quat(finish.rot),
-                                        radius = finish.radius,
-                                    }
-                                    newFinish.rot = newFinish.rot * quat(0, 0, 1, 0)
                                     if #step > 1 then
                                         -- multiple finishes
-                                        newFinish.name = svar("finish{1}", { iFinish })
+                                        finish.name = svar("finish{1}", { iFinish })
                                     else
                                         -- single finish
-                                        newFinish.name = "finish"
+                                        finish.name = "finish"
                                     end
-                                    table.insert(newStepFinish, newFinish)
+                                    table.insert(newStepFinish, finish)
                                 end
                                 table.insert(newSteps, newStepFinish)
                             elseif #raceEdit.startPositions > 0 then
@@ -415,7 +407,7 @@ local function drawNameAndAuthor()
     local validName = #raceEdit.name > 0
     if validName then
         for _, r in pairs(BJIContext.Scenario.Data.Races) do
-            if r.id ~= raceEdit.id and strim(raceEdit.name) == r.name then
+            if r.id ~= raceEdit.id and raceEdit.name == r.name then
                 validName = false
                 break
             end
@@ -870,7 +862,6 @@ local function drawSteps(canSetPos, vehpos, campos, ctxt)
                         for _, key in ipairs({
                             "races.edit.wpName",
                             "races.edit.radius",
-                            "races.edit.bottomHeight",
                             "races.edit.parent",
                         }) do
                             local label = BJILang.get(key)
@@ -938,38 +929,6 @@ local function drawSteps(canSetPos, vehpos, campos, ctxt)
                                 cells = {
                                     function()
                                         LineBuilder()
-                                            :text(svar("{1}:", { BJILang.get("races.edit.bottomHeight") }))
-                                            :build()
-                                    end,
-                                    function()
-                                        LineBuilder()
-                                            :inputNumeric({
-                                                id = svar("bottomHeightWP-{1}-{2}", { iStep, iWp }),
-                                                type = "float",
-                                                value = wp.zOffset or 1,
-                                                min = 0,
-                                                max = 10,
-                                                step = .25,
-                                                disabled = raceEdit.processSave,
-                                                onUpdate = function(val)
-                                                    if val == 1 then
-                                                        wp.zOffset = nil
-                                                    else
-                                                        wp.zOffset = val
-                                                    end
-                                                    raceEdit.changed = true
-                                                    raceEdit.keepRecord = false
-                                                    updateMarkers()
-                                                end
-                                            })
-                                            :build()
-                                    end,
-                                }
-                            })
-                            :addRow({
-                                cells = {
-                                    function()
-                                        LineBuilder()
                                             :text(BJILang.get("races.edit.parent"))
                                             :build()
                                     end,
@@ -995,7 +954,6 @@ local function drawSteps(canSetPos, vehpos, campos, ctxt)
                                                 end
                                                 if validParent and parent ~= "start" and not findWP(parent, iStep) then
                                                     validParent = false
-                                                    valid = false
                                                 end
 
                                                 line = LineBuilder()

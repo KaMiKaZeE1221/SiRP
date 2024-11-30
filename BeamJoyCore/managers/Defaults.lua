@@ -121,7 +121,6 @@ local function config()
             HuntedStartDelay = 0,
             HuntersStartDelay = 5,
             HuntedStuckTimeout = 10,
-            HuntersRespawnDelay = 10
         },
         Speed = {
             PreparationTimeout = 10,

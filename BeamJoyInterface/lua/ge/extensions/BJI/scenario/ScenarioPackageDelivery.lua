@@ -232,7 +232,7 @@ local function slowTick(ctxt)
             else
                 msg = svar(BJILang.get("packageDelivery.flashPackageStreak"), { streak = streak })
             end
-            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 3100, false, msg, nil,
+            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 500, false, msg, nil,
                 onTargetReached)
             M.checkTargetProcess = true
         end

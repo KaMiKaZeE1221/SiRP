@@ -86,7 +86,7 @@ local retrievingEvents = {}
 local function tryFinalizingEvent(id)
     local event = retrievingEvents[id]
     if event then
-        if not event.controller or event.parts > #event.data then
+        if event.parts > #event.data or not event.controller then
             -- not ready yet
             return
         end

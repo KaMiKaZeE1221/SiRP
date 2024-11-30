@@ -64,7 +64,6 @@ local function onLoad()
 end
 
 local function onUnload()
-    M.reset()
     if M.baseFunctions.navigateToMission then
         freeroam_bigMapMode.navigateToMission = M.baseFunctions.navigateToMission
     end

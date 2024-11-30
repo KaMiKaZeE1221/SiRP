@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Contact : https://github.com/my-name-is-samael
 ]]
 
-BJCVERSION = "1.0.9"
+BJCVERSION = "1.0.7"
 
 BJCPluginPath = debug.getinfo(1).source:gsub("\\", "/")
 BJCPluginPath = BJCPluginPath:sub(1, (BJCPluginPath:find("BeamJoyCore.lua")) - 2)
@@ -50,7 +50,7 @@ function TriggerBJCManagers(eventName, ...)
 end
 
 function _G.onInit()
-    Log(svar("Loading BeamJoyCore v{1} ...", { BJCVERSION }), "BJC")
+    Log(svar("Loading BeamJoyCoreModded v{1} ...", { BJCVERSION }), "BJCM")
 
     BJCAsync = require("managers/AsyncManager")
     BJCDefaults = require("managers/Defaults")
@@ -66,6 +66,12 @@ function _G.onInit()
     BJCMaps = require("managers/MapsManager")
     BJCCommandManager = require("managers/CommandManager")
     BJCVote = require("managers/VotesManager")
+	--Custom Managers
+    BJCPoor = require("managers/PoorPlayerManager")
+    --BJCFuel = require("managers/FuelManager")
+    --BJCSpeedCam = require("managers/SpeedCamManager")
+    --BJCReputation = require("managers/ReputationCostsManager")
+	--BJCHelp = require("managers/HelpManager")
     --[[BJCTx]]
     require("tx/Tx")
     BJCEnvironment = require("managers/EnvironmentManager")
@@ -76,5 +82,5 @@ function _G.onInit()
 
     require("rx/Rx")
 
-    Log(svar("BeamJoyCore v{1} loaded !", { BJCVERSION }), "BJC")
+     Log(svar("Loaded BeamJoyCoreModded v{1} ...", { BJCVERSION }), "BJCM")
 end

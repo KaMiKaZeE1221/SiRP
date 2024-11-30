@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Contact : https://github.com/my-name-is-samael
 ]]
 
-BJIVERSION = "1.0.9"
+BJIVERSION = "1.0.7"
 
 local managers = {}
 function GetBJIManagers()
@@ -82,6 +82,7 @@ local function loadManagers()
     BJIPopup = require("ge/extensions/BJI/managers/PopupManager")
     BJIStations = require("ge/extensions/BJI/managers/StationsManager")
     --BJICollisions = require("ge/extensions/BJI/managers/CollisionsManager")
+    --BJIFuel = require("ge/extensions/BJI/managers/FuelManager")
 
     BJIRaceUI = require("ge/extensions/BJI/managers/RaceUIManager")
     BJIBusUI = require("ge/extensions/BJI/managers/BusUIManager")

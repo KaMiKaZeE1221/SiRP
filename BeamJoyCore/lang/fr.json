@@ -532,10 +532,7 @@
     },
     "playersBlock": {
       "waitingPlayers": "Joueurs en attente",
-      "players": "Joueurs",
-      "buttons": {
-        "voteKick": "Voter Kick"
-      }
+      "players": "Joueurs"
     },
     "moderationBlock": {
       "waitingPlayers": "Joueurs en attente",
@@ -631,19 +628,6 @@
           "StepDelay": "Délai entre les Incréments (sec)",
           "EndTimeout": "Durée de Fin",
           "EndTimeoutTooltip": "Temps en secondes entre la fin des derniers joueurs et la fin du mode"
-        },
-        "hunter": {
-          "title": "Paramètres du Mode Hunter",
-          "PreparationTimeout": "Durée de préparation",
-          "PreparationTimeoutTooltip": "Temps en secondes pendant lequel les joueurs peuvent rejoindre le mode de jeu",
-          "HuntedStartDelay": "Délai de départ du fugitif",
-          "HuntedStartDelayTooltip": "Compte à rebours en secondes pour les fugitifs",
-          "HuntersStartDelay": "Délai de départ des chasseurs",
-          "HuntersStartDelayTooltip": "Compte à rebours en secondes pour les chasseurs",
-          "HuntedStuckTimeout": "Délai de blocage pour les fugitifs",
-          "HuntedStuckTimeoutTooltip": "Temps en secondes pendant lequel le fugitif doit être coincé pour que les chasseurs gagnent",
-          "HuntersRespawnDelay": "Délai de réapparition des chasseurs",
-          "HuntersRespawnDelayTooltip": "Temps en secondes pendant lequel les chasseurs sont bloqués lorsqu'ils resettent"
         },
         "vehicleDelivery": {
           "title": "Paramètres de Livraison de Véhicule",
@@ -783,7 +767,6 @@
         "branch": "Branche",
         "wpName": "Nom",
         "radius": "Rayon",
-        "bottomHeight": "Hauteur du fond",
         "parent": "Parent(s)",
         "parentStartTooltip": "Tu peux utiliser \"start\" dans les étapes suivantes pour créer une branche depuis le début de la course",
         "addParent": "Ajouter un parent",
@@ -898,6 +881,7 @@
       }
     },
     "energyStations": {
+      "noStationAvailable": "Aucune {stationName} à proximité...",
       "flashBatteryFilled": "Batteries chargées",
       "flashTankFilled": "Réservoir rempli",
       "noRefuelScenario": "Tu ne peux pas faire le plein dans ce scénario",
@@ -911,6 +895,7 @@
     },
     "garages": {
       "damagedWarning": "Votre véhicule est endommagé",
+      "noGarageAvailable": "Aucun garage à proximité...",
       "garage": "Garage",
       "repairBtn": "Réparer le véhicule",
       "flashVehicleRepaired": "Véhicule réparé",

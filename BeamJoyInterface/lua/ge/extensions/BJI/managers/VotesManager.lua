@@ -66,13 +66,9 @@ function M.Map.getTotalPlayers()
 end
 
 function M.Map.canStartVote()
-    -- Rule in https://github.com/my-name-is-samael/BeamJoy/issues/14
     return not M.Map.started() and
         BJIPerm.hasPermission(BJIPerm.PERMISSIONS.VOTE_MAP) and
-        (
-            M.Map.getTotalPlayers() > 1 or
-            not BJIPerm.hasPermission(BJIPerm.PERMISSIONS.SWITCH_MAP)
-        )
+        M.Map.getTotalPlayers() > 1
 end
 
 function M.Map.start(mapName)

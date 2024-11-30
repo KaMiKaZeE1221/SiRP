@@ -60,6 +60,9 @@ local function tryApplyEngineState(gameVehID)
 end
 
 local function renderTick(ctxt)
+    if BJIDEBUGCTXT then
+        BJIDEBUG = ctxt
+    end
     if not BJIContext.User.engine then
         for _, veh in pairs(BJIContext.User.vehicles) do
             BJIVeh.engine(false, veh.gameVehID)
@@ -300,54 +303,54 @@ local function getPlayerListActions(player, ctxt)
                 end
             end
         })
-    end
 
-    if ctxt.isOwner then
-        if isSelf and BJIVeh.isUnicycle(ctxt.veh:getID()) then
-            table.insert(actions, {
-                id = "stopWalking",
-                icon = ICONS.directions_run,
-                background = BTN_PRESETS.ERROR,
-                onClick = BJIVeh.deleteCurrentOwnVehicle,
-            })
-        end
-
-        if not isSelf and tlength(player.vehicles) > 0 then
-            table.insert(actions, {
-                id = svar("gpsPlayer{1}", { player.playerID }),
-                icon = ICONS.add_location,
-                background = BTN_PRESETS.SUCCESS,
-                onClick = function()
-                    BJIGPS.prependWaypoint(BJIGPS.KEYS.PLAYER, nil, 20, nil, player.playerName)
+        if ctxt.isOwner then
+            if isSelf then
+                if BJIVeh.isUnicycle(ctxt.veh:getID()) then
+                    table.insert(actions, {
+                        id = svar("stopWalking{1}", { player.playerID }),
+                        icon = ICONS.directions_run,
+                        background = BTN_PRESETS.ERROR,
+                        onClick = BJIVeh.deleteCurrentOwnVehicle,
+                    })
                 end
-            })
-
-            if BJIPerm.hasPermission(BJIPerm.PERMISSIONS.TELEPORT_TO) then
+            else
                 table.insert(actions, {
-                    id = svar("teleportTo{1}", { player.playerID }),
-                    icon = ICONS.tb_height_higher,
-                    background = BTN_PRESETS.WARNING,
+                    id = svar("gpsPlayer{1}", { player.playerID }),
+                    icon = ICONS.add_location,
+                    background = BTN_PRESETS.SUCCESS,
                     onClick = function()
-                        M.tryTeleportToPlayer(player.playerID)
+                        BJIGPS.prependWaypoint(BJIGPS.KEYS.PLAYER, nil, 20, nil, player.playerName)
                     end
                 })
-            end
 
-            if BJIPerm.hasPermission(BJIPerm.PERMISSIONS.TELEPORT_FROM) then
-                local finalGameVehID = BJIVeh.getVehicleObject(player.currentVehicle)
-                finalGameVehID = finalGameVehID and finalGameVehID:getID() or nil
-                if finalGameVehID and BJIVeh.getVehOwnerID(finalGameVehID) == player.playerID then
+                if BJIPerm.hasPermission(BJIPerm.PERMISSIONS.TELEPORT_TO) then
                     table.insert(actions, {
-                        id = svar("teleportFrom{1}", { player.playerID }),
-                        icon = ICONS.tb_height_lower,
+                        id = svar("teleportTo{1}", { player.playerID }),
+                        icon = ICONS.tb_height_higher,
                         background = BTN_PRESETS.WARNING,
-                        disabled = not finalGameVehID or
-                            not ctxt.isOwner or
-                            finalGameVehID == ctxt.veh:getID(),
                         onClick = function()
-                            BJITx.moderation.teleportFrom(player.playerID)
+                            M.tryTeleportToPlayer(player.playerID)
                         end
                     })
+                end
+
+                if BJIPerm.hasPermission(BJIPerm.PERMISSIONS.TELEPORT_FROM) then
+                    local finalGameVehID = BJIVeh.getVehicleObject(player.currentVehicle)
+                    finalGameVehID = finalGameVehID and finalGameVehID:getID() or nil
+                    if finalGameVehID and BJIVeh.getVehOwnerID(finalGameVehID) == player.playerID then
+                        table.insert(actions, {
+                            id = svar("teleportFrom{1}", { player.playerID }),
+                            icon = ICONS.tb_height_lower,
+                            background = BTN_PRESETS.WARNING,
+                            disabled = not finalGameVehID or
+                                not ctxt.isOwner or
+                                finalGameVehID == ctxt.veh:getID(),
+                            onClick = function()
+                                BJITx.moderation.teleportFrom(player.playerID)
+                            end
+                        })
+                    end
                 end
             end
         end

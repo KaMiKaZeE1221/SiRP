@@ -532,10 +532,7 @@
     },
     "playersBlock": {
       "waitingPlayers": "Giocatori in attesa",
-      "players": "Giocatori",
-      "buttons": {
-        "voteKick": "Voto Kick"
-      }
+      "players": "Giocatori"
     },
     "moderationBlock": {
       "waitingPlayers": "Giocatori in attesa",
@@ -543,7 +540,7 @@
       "tempBanDuration": "Durata del TempBan",
       "vehicles": "Veicoli",
       "buttons": {
-        "kick": "Kick",
+        "kick": "Calcio",
         "tempBan": "Divieto temporaneo",
         "ban": "Divieto",
         "demoteTo": "Retrocedi a {groupName}",
@@ -631,19 +628,6 @@
           "StepDelay": "Ritardo tra i passaggi (sec)",
           "EndTimeout": "Durata finale",
           "EndTimeoutTooltip": "Tempo in secondi tra l'arrivo degli ultimi giocatori e la fine della modalità"
-        },
-        "hunter": {
-          "title": "Impostazioni Modalità Hunter",
-          "PreparationTimeout": "Durata preparazione",
-          "PreparationTimeoutTooltip": "Tempo in secondi durante il quale i giocatori possono entrare nel gioco",
-          "HuntedStartDelay": "Ritardo inizio fuggitivo",
-          "HuntedStartDelayTooltip": "Conto alla rovescia in secondi per i fuggitivi",
-          "HuntersStartDelay": "Ritardo inizio cacciatori",
-          "HuntersStartDelayTooltip": "Conto alla rovescia in secondi per i cacciatori",
-          "HuntedStuckTimeout": "Timeout per fuggitivi bloccati",
-          "HuntedStuckTimeoutTooltip": "Tempo in secondi che il fuggitivo deve essere bloccato per far vincere i cacciatori",
-          "HuntersRespawnDelay": "Ritardo nel respawn dei cacciatori",
-          "HuntersRespawnDelayTooltip": "Tempo in secondi in cui i cacciatori sono bloccati quando rinascono"
         },
         "vehicleDelivery": {
           "title": "Impostazioni di consegna del veicolo",
@@ -783,7 +767,6 @@
         "branch": "Ramo",
         "wpName": "Nome",
         "radius": "Raggio",
-        "bottomHeight": "Altezza del fondo",
         "parent": "Genitori)",
         "parentStartTooltip": "Puoi utilizzare \"start\" nei passaggi successivi anche per diramarsi dall'inizio",
         "addParent": "Aggiungi genitore",
@@ -898,6 +881,7 @@
       }
     },
     "energyStations": {
+      "noStationAvailable": "Nessun {stationName} in giro...",
       "flashBatteryFilled": "Batterie cariche",
       "flashTankFilled": "Serbatoio pieno",
       "noRefuelScenario": "Non puoi fare rifornimento al tuo veicolo in questo scenario",
@@ -911,6 +895,7 @@
     },
     "garages": {
       "damagedWarning": "Il tuo veicolo è danneggiato",
+      "noGarageAvailable": "Nessun garage intorno...",
       "garage": "Garage",
       "repairBtn": "Riparare il veicolo",
       "flashVehicleRepaired": "Veicolo riparato",

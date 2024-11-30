@@ -1,7 +1,8 @@
 debugDrawer = debugDrawer or {
     drawSphere = function(self, pos, r, shapeColF, useZ) end,
-    drawSquarePrism = function(self, base, tip, baseSize, tipSize, shpaeColF, useZ) end,
+    drawSquarePrism = function(self, base, tip, baseSize, tipSize, shapeColF, useZ) end,
     drawTextAdvanced = function(self, pos, text, textColF, useAdvancedText, twod, bgColI, shadow, useZ) end,
+    drawCylinder = function(self, bottomPos, topPos, radius, shapeColF) end, -- Added Cylinder function
 }
 
 local drawer = {}
@@ -63,8 +64,7 @@ local function Cylinder(bottomPos, topPos, radius, shapeColor)
     local errBottom, errTop, _
     _, bottomPos, errBottom = pcall(vec3, bottomPos)
     _, topPos, errTop = pcall(vec3, topPos)
-    if errBottom or errTop or
-        not tonumber(radius) then
+    if errBottom or errTop or not tonumber(radius) then
         -- invalid position or radius
         return
     end

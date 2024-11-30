@@ -252,7 +252,7 @@ local function initGrid(data)
                 BJICam.CAMERAS.ORBIT,
             }, M.preRaceCam) then
             -- will preserve camera for race start (if valid camera)
-            M.preRaceCam = BJICam.CAMERAS.ORBIT
+            --M.preRaceCam = BJICam.CAMERAS.ORBIT
         end
     end
 

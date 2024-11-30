@@ -6,6 +6,15 @@ local M = {
     _mapFullNameSuffix = "/info.json",
 }
 
+local function removeSpecialChars(str)
+    local s = str:find("%^")
+    while s ~= nil do
+        str = svar("{1}{2}", { str:sub(1, s - 1), str:sub(s + 2) })
+        s = str:find("%^")
+    end
+    return str
+end
+
 local function readServerConfig()
     local result = {}
 
@@ -16,19 +25,14 @@ local function readServerConfig()
         result = TOML.parse(text)
     end
 
-    return result
-end
-
-local function writeServerConfig()
-    local tmpfile, error = io.open("ServerConfig.temp", "w")
-    if tmpfile and not error then
-        local data = TOML.encode(M.Data) -- TOML encoding is altering data
-        tmpfile:write(data)
-        tmpfile:close()
-
-        FS.Remove("ServerConfig.toml")
-        FS.Rename("ServerConfig.temp", "ServerConfig.toml")
+    if result.General and result.General.Name then
+        result.General.Name = removeSpecialChars(result.General.Name)
     end
+    if result.General and result.General.Description then
+        result.General.Description = removeSpecialChars(result.General.Description)
+    end
+
+    return result
 end
 
 local function init()
@@ -53,11 +57,17 @@ local function init()
             SendErrors = core.Misc.SendErrors == true
         }
     }
+end
 
-    -- fix invalid MaxCars
-    if M.Data.General.MaxCars < 0 then
-        M.Data.General.MaxCars = 0
-        writeServerConfig()
+local function writeServerConfig()
+    local tmpfile, error = io.open("ServerConfig.temp", "w")
+    if tmpfile and not error then
+        local data = TOML.encode(M.Data) -- TOML encoding is altering data
+        tmpfile:write(data)
+        tmpfile:close()
+
+        FS.Remove("ServerConfig.toml")
+        FS.Rename("ServerConfig.temp", "ServerConfig.toml")
     end
 end
 
@@ -137,22 +147,22 @@ local function setMap(mapName)
 end
 
 local function set(key, value)
-    local keys = { "Name", "Debug", "Private", "MaxCars", "MaxPlayers" }
+    local keys = { "Name", "Debug", "Private", "MaxCars", "MaxPlayers", "Map", "Description" }
     if type(M.Data.General[key]) == type(value) and tincludes(keys, key) then
-        M.Data.General[key] = value
-        MP.Set(MP.Settings[key], value)
-        writeServerConfig()
-        BJCTx.cache.invalidateByPermissions(BJCCache.CACHES.CORE, BJCPerm.PERMISSIONS.SET_CORE)
-    elseif key == "Map" then
-        setMap(value)
+        if key == "Map" then
+            setMap(value)
+        else
+            if key == "Description" then
+                value = value:gsub("\n", " ")
+            end
+            M.Data.General[key] = value
+            MP.Set(MP.Settings[key], value)
+            writeServerConfig()
+            BJCTx.cache.invalidateByPermissions(BJCCache.CACHES.CORE, BJCPerm.PERMISSIONS.SET_CORE)
+        end
     elseif key == "Tags" then
         value = value:gsub("\n", ",")
         M.Data.General.Tags = value
-        writeServerConfig()
-        BJCTx.cache.invalidateByPermissions(BJCCache.CACHES.CORE, BJCPerm.PERMISSIONS.SET_CORE)
-    elseif key == "Description" then
-        value = value:gsub("\n", "^p")
-        M.Data.General.Description = value
         writeServerConfig()
         BJCTx.cache.invalidateByPermissions(BJCCache.CACHES.CORE, BJCPerm.PERMISSIONS.SET_CORE)
     end
@@ -196,8 +206,6 @@ local function getCache()
         cache[v] = config[v]
         if v == "Tags" then
             cache[v] = cache[v]:gsub(",", "\n")
-        elseif v == "Description" then
-            cache[v] = cache[v]:gsub("%^p", "\n")
         end
     end
     return cache, M.getCacheHash()

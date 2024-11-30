@@ -44,6 +44,8 @@ local function drawHealth(ctxt)
                             end
                         end,
                     })
+                else
+                    line:text(BJILang.get("garages.noGarageAvailable"))
                 end
             end
             line:build()
