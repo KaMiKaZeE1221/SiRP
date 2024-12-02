@@ -111,7 +111,8 @@
         "invalidVehicleID": "Veicolo non valido ({vehicleID})",
         "invalidLang": "Lingua non valida \"{lang}\"",
         "insufficientPlayers": "Non abbastanza giocatori",
-        "guestCannotBeWhitelisted": "Gli ospiti non possono essere inseriti nella whitelist"
+        "guestCannotBeWhitelisted": "Gli ospiti non possono essere inseriti nella whitelist",
+        "playerAmbiguity": "Ambiguità con i giocatori: {playerList}"
       },
       "vehicleRemoveOneOf": "Uno dei tuoi veicoli",
       "vehicleRemoveMain": "Il tuo veicolo",
@@ -143,6 +144,16 @@
     "derby": {
       "winner": "{playerName} ha vinto la partita!",
       "draw": "Disegno"
+    },
+    "commands": {
+      "title": "Comandi",
+      "aliases": "Alias",
+      "invalidCommand": "Comando non valido",
+      "usage": "Uso",
+      "helpArgs": "[comando]",
+      "helpDesc": "Mostra questo messaggio o l'aiuto per il comando specificato",
+      "pmArgs": "<nome_giocatore> <messaggio>",
+      "pmDesc": "Invia un messaggio privato a qualcuno (il nome del giocatore non è sensibile alle maiuscole e può essere una parte)"
     }
   },
   "client": {
@@ -221,7 +232,8 @@
       "reputationTag": "RP",
       "playerJoined": "{playerName} si è iscritto",
       "playerLeft": "{playerName} rimasto",
-      "directMessage": "{playerName} ti invia: {message}"
+      "directMessage": "da {playerName}",
+      "directMessageSent": "a {playerName}"
     },
     "nametags": {
       "staffTag": "PERSONALE",
@@ -249,7 +261,8 @@
       "BJIHunterSettings": "Impostazioni di gioco del cacciatore",
       "BJIHunter": "Gioco del cacciatore",
       "BJITheme": "Redattore del tema",
-      "BJIDerby": "Derby della distruzione"
+      "BJIDerby": "Derby della distruzione",
+      "BJIVehicleSelectorPreview": "Anteprima del veicolo"
     },
     "menu": {
       "me": {
@@ -516,8 +529,9 @@
       "uiScale": "Scala dell'interfaccia utente",
       "vehicles": {
         "automaticLights": "Luci automatiche",
-        "automaticLightsTooltip": "Attiva/disattiva automaticamente i fari in base all'ora del giorno.",
+        "automaticLightsTooltip": "Attiva/disattiva automaticamente i fari in base all'ora del giorno",
         "driftFlashes": "Indicatore di deriva",
+        "driftFlashesTooltip": "Assicurati di avere l'app UI \"Race Realtime Display\" nel tuo layout",
         "nametags": "Targhette con i nomi dei giocatori"
       },
       "freecam": {
@@ -532,7 +546,10 @@
     },
     "playersBlock": {
       "waitingPlayers": "Giocatori in attesa",
-      "players": "Giocatori"
+      "players": "Giocatori",
+      "buttons": {
+        "voteKick": "Voto Kick"
+      }
     },
     "moderationBlock": {
       "waitingPlayers": "Giocatori in attesa",
@@ -540,7 +557,7 @@
       "tempBanDuration": "Durata del TempBan",
       "vehicles": "Veicoli",
       "buttons": {
-        "kick": "Calcio",
+        "kick": "Kick",
         "tempBan": "Divieto temporaneo",
         "ban": "Divieto",
         "demoteTo": "Retrocedi a {groupName}",
@@ -628,6 +645,19 @@
           "StepDelay": "Ritardo tra i passaggi (sec)",
           "EndTimeout": "Durata finale",
           "EndTimeoutTooltip": "Tempo in secondi tra l'arrivo degli ultimi giocatori e la fine della modalità"
+        },
+        "hunter": {
+          "title": "Impostazioni Modalità Hunter",
+          "PreparationTimeout": "Durata preparazione",
+          "PreparationTimeoutTooltip": "Tempo in secondi durante il quale i giocatori possono entrare nel gioco",
+          "HuntedStartDelay": "Ritardo inizio fuggitivo",
+          "HuntedStartDelayTooltip": "Conto alla rovescia in secondi per i fuggitivi",
+          "HuntersStartDelay": "Ritardo inizio cacciatori",
+          "HuntersStartDelayTooltip": "Conto alla rovescia in secondi per i cacciatori",
+          "HuntedStuckTimeout": "Timeout per fuggitivi bloccati",
+          "HuntedStuckTimeoutTooltip": "Tempo in secondi che il fuggitivo deve essere bloccato per far vincere i cacciatori",
+          "HuntersRespawnDelay": "Ritardo nel respawn dei cacciatori",
+          "HuntersRespawnDelayTooltip": "Tempo in secondi in cui i cacciatori sono bloccati quando rinascono"
         },
         "vehicleDelivery": {
           "title": "Impostazioni di consegna del veicolo",
@@ -730,6 +760,10 @@
       "quickTravel": "Viaggio veloce",
       "nametags": "Targhette con i nomi dei giocatori",
       "preserveEnergy": "Conservare il carburante tra i ripristini",
+      "emergencyRefuelDuration": "Durata del rifornimento d'emergenza",
+      "emergencyRefuelDurationTooltip": "Durata del processo di rifornimento d'emergenza in secondi",
+      "emergencyRefuelPercent": "Percentuale di rifornimento d'emergenza",
+      "emergencyRefuelPercentTooltip": "Percentuale del serbatoio rifornita dopo il processo",
       "driftGood": "Punteggio minimo di buone derive",
       "driftBig": "Punteggio minimo per grandi derive",
       "allowUnicycle": "Consentire di camminare"
@@ -767,6 +801,7 @@
         "branch": "Ramo",
         "wpName": "Nome",
         "radius": "Raggio",
+        "bottomHeight": "Altezza del fondo",
         "parent": "Genitori)",
         "parentStartTooltip": "Puoi utilizzare \"start\" nei passaggi successivi anche per diramarsi dall'inizio",
         "addParent": "Aggiungi genitore",
@@ -881,10 +916,12 @@
       }
     },
     "energyStations": {
-      "noStationAvailable": "Nessun {stationName} in giro...",
       "flashBatteryFilled": "Batterie cariche",
       "flashTankFilled": "Serbatoio pieno",
+      "flashTanksFilled": "Serbatoi riempiti",
       "noRefuelScenario": "Non puoi fare rifornimento al tuo veicolo in questo scenario",
+      "tanksAmount": "{amount} serbatoi",
+      "emergencyRefuel": "Rifornimento d'emergenza",
       "edit": {
         "title": "Redattore delle stazioni energetiche",
         "name": "Nome della stazione",
@@ -895,7 +932,6 @@
     },
     "garages": {
       "damagedWarning": "Il tuo veicolo è danneggiato",
-      "noGarageAvailable": "Nessun garage intorno...",
       "garage": "Garage",
       "repairBtn": "Riparare il veicolo",
       "flashVehicleRepaired": "Veicolo riparato",

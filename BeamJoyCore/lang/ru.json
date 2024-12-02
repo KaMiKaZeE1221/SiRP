@@ -111,7 +111,8 @@
         "invalidVehicleID": "Неверный автомобиль ({vehicleID})",
         "invalidLang": "Неверный язык \"{lang}\"",
         "insufficientPlayers": "Недостаточно игроков",
-        "guestCannotBeWhitelisted": "Гостей нельзя внести в белый список"
+        "guestCannotBeWhitelisted": "Гостей нельзя внести в белый список",
+        "playerAmbiguity": "Неоднозначность с игроками: {playerList}"
       },
       "vehicleRemoveOneOf": "Один из ваших автомобилей",
       "vehicleRemoveMain": "Ваш автомобиль",
@@ -143,6 +144,16 @@
     "derby": {
       "winner": "{playerName} выиграл игру!",
       "draw": "Рисовать"
+    },
+    "commands": {
+      "title": "Команды",
+      "aliases": "Псевдонимы",
+      "invalidCommand": "Неверная команда",
+      "usage": "Использование",
+      "helpArgs": "[команда]",
+      "helpDesc": "Выводит это сообщение или справку по указанной команде",
+      "pmArgs": "<имя_игрока> <сообщение>",
+      "pmDesc": "Отправить личное сообщение кому-то (имя игрока нечувствительно к регистру и может быть частью)"
     }
   },
   "client": {
@@ -221,7 +232,8 @@
       "reputationTag": "РП",
       "playerJoined": "{playerName} присоединился",
       "playerLeft": "{playerName} остался",
-      "directMessage": "Пользователь {playerName} отправляет вам: {message}"
+      "directMessage": "от {playerName}",
+      "directMessageSent": "к {playerName}"
     },
     "nametags": {
       "staffTag": "ПЕРСОНАЛ",
@@ -249,7 +261,8 @@
       "BJIHunterSettings": "Настройки игры Охотник",
       "BJIHunter": "Охотничья игра",
       "BJITheme": "Редактор тем",
-      "BJIDerby": "Дерби Разрушения"
+      "BJIDerby": "Дерби Разрушения",
+      "BJIVehicleSelectorPreview": "Предпросмотр транспорта"
     },
     "menu": {
       "me": {
@@ -516,8 +529,9 @@
       "uiScale": "Масштаб пользовательского интерфейса",
       "vehicles": {
         "automaticLights": "Автоматические фонари",
-        "automaticLightsTooltip": "Автоматическое переключение фар в зависимости от времени суток.",
+        "automaticLightsTooltip": "Автоматическое переключение фар в зависимости от времени суток",
         "driftFlashes": "Индикатор дрейфа",
+        "driftFlashesTooltip": "Убедитесь, что в вашем интерфейсе есть приложение \"Отображение гонки в реальном времени\"",
         "nametags": "Бейджи с именами игроков"
       },
       "freecam": {
@@ -532,7 +546,10 @@
     },
     "playersBlock": {
       "waitingPlayers": "Ожидающие игроки",
-      "players": "Игроки"
+      "players": "Игроки",
+      "buttons": {
+        "voteKick": "Голосование Кик"
+      }
     },
     "moderationBlock": {
       "waitingPlayers": "Ожидающие игроки",
@@ -540,7 +557,7 @@
       "tempBanDuration": "Продолжительность TempBan",
       "vehicles": "Транспортные средства",
       "buttons": {
-        "kick": "Пинать",
+        "kick": "Кик",
         "tempBan": "Временный запрет",
         "ban": "Запретить",
         "demoteTo": "Понизить уровень до {groupName}",
@@ -628,6 +645,19 @@
           "StepDelay": "Задержка между шагами (сек)",
           "EndTimeout": "Конечная продолжительность",
           "EndTimeoutTooltip": "Время в секундах между последними игроками и завершением режима."
+        },
+        "hunter": {
+          "title": "Настройки режима Охотник",
+          "PreparationTimeout": "Время подготовки",
+          "PreparationTimeoutTooltip": "Время в секундах, в течение которого игроки могут присоединиться к режиму",
+          "HuntedStartDelay": "Задержка начала для беглецов",
+          "HuntedStartDelayTooltip": "Обратный отсчет в секундах для беглецов",
+          "HuntersStartDelay": "Задержка начала для охотников",
+          "HuntersStartDelayTooltip": "Обратный отсчет в секундах для охотников",
+          "HuntedStuckTimeout": "Время, которое беглец должен застрять для победы охотников",
+          "HuntedStuckTimeoutTooltip": "Время в секундах, которое беглец должен быть застрявшим, чтобы охотники выиграли",
+          "HuntersRespawnDelay": "Задержка респауна охотников",
+          "HuntersRespawnDelayTooltip": "Время в секундах, которое охотники застревают при респауне"
         },
         "vehicleDelivery": {
           "title": "Настройки доставки автомобиля",
@@ -730,6 +760,10 @@
       "quickTravel": "Быстрое путешествие",
       "nametags": "Бейджи с именами игроков",
       "preserveEnergy": "Сохраняйте топливо между сбросами",
+      "emergencyRefuelDuration": "Продолжительность аварийной заправки",
+      "emergencyRefuelDurationTooltip": "Длительность процесса аварийной заправки в секундах",
+      "emergencyRefuelPercent": "Процент аварийной заправки",
+      "emergencyRefuelPercentTooltip": "Процент бака, заправленного после процесса",
       "driftGood": "Минимальный балл за хорошие заносы",
       "driftBig": "Минимальный балл за большие заносы",
       "allowUnicycle": "Разрешить ходьбу"
@@ -767,6 +801,7 @@
         "branch": "Ветвь",
         "wpName": "Имя",
         "radius": "Радиус",
+        "bottomHeight": "Высота дна",
         "parent": "Родители)",
         "parentStartTooltip": "Вы можете использовать «start» на следующих шагах, чтобы перейти с самого начала.",
         "addParent": "Добавить родителя",
@@ -881,10 +916,12 @@
       }
     },
     "energyStations": {
-      "noStationAvailable": "Нет станции {stationName} поблизости...",
       "flashBatteryFilled": "Батареи заряжены",
       "flashTankFilled": "Бак заполнен",
+      "flashTanksFilled": "Баки заполнены",
       "noRefuelScenario": "В этом сценарии вы не сможете заправить свой автомобиль.",
+      "tanksAmount": "{amount} баков",
+      "emergencyRefuel": "Аварийная заправка",
       "edit": {
         "title": "Редактор энергетических станций",
         "name": "Название станции",
@@ -895,7 +932,6 @@
     },
     "garages": {
       "damagedWarning": "Ваш автомобиль поврежден",
-      "noGarageAvailable": "Гаража рядом нет...",
       "garage": "Гараж",
       "repairBtn": "Ремонт автомобиля",
       "flashVehicleRepaired": "Автомобиль отремонтирован",

@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Contact : https://github.com/my-name-is-samael
 ]]
 
-BJIVERSION = "1.0.7"
+BJIVERSION = "1.1.0"
 
 local managers = {}
 function GetBJIManagers()
@@ -72,7 +72,6 @@ local function loadManagers()
     BJIControllers = require("ge/extensions/BJI/rx/Controllers")
     BJIVote = require("ge/extensions/BJI/managers/VotesManager")
     BJITick = require("ge/extensions/BJI/managers/TickManager")
-    BJIWindows = require("ge/extensions/BJI/managers/WindowsManager")
     BJIQuickTravel = require("ge/extensions/BJI/managers/QuickTravelManager")
     BJIBigmap = require("ge/extensions/BJI/managers/BigmapManager")
     BJIDrift = require("ge/extensions/BJI/managers/DriftManager")
@@ -81,14 +80,16 @@ local function loadManagers()
     BJIAI = require("ge/extensions/BJI/managers/AIManager")
     BJIPopup = require("ge/extensions/BJI/managers/PopupManager")
     BJIStations = require("ge/extensions/BJI/managers/StationsManager")
-    --BJICollisions = require("ge/extensions/BJI/managers/CollisionsManager")
-    --BJIFuel = require("ge/extensions/BJI/managers/FuelManager")
+    BJICollisions = require("ge/extensions/BJI/managers/CollisionsManager")
 
     BJIRaceUI = require("ge/extensions/BJI/managers/RaceUIManager")
     BJIBusUI = require("ge/extensions/BJI/managers/BusUIManager")
     BJIVehUI = require("ge/extensions/BJI/managers/VehicleSelectorUIManager")
 
     BJIVehSelector = require("ge/extensions/BJI/ui/WindowVehicleSelector/DrawWindowVehicleSelector")
+    BJIVehSelectorPreview = require("ge/extensions/BJI/ui/WindowVehicleSelector/DrawWindowVehicleSelectorPreview")
+
+    BJIWindows = require("ge/extensions/BJI/managers/WindowsManager")
 end
 loadManagers()
 
@@ -175,3 +176,6 @@ return M
 
 -- top left message
 -- guihooks.trigger('Message',{ttl=1,msg="Hello World !",category=""})
+
+-- get map height below pos
+-- be:getSurfaceHeightBelow(vec3)

@@ -156,46 +156,46 @@ function _BJCOnVehicleSpawn(playerID, vehID, vehData)
     end
 
     local model = vehData.jbm or vehData.vcf.model
-    if not model then
-        LogError("Debug: Invalid vehicle model. vehData: " .. JSON.stringify(vehData))
-        return 1
-    end
-
-    local vehiclePrice = M.SpawnvehiclePrices[model] or 25
-
-
-    if player.reputation < vehiclePrice then
-        --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, " Not enough reputation to spawn the vehicle. You need ".. vehiclePrice .. " reputation points.")
-        BJCChat.onServerChat(playerID, "🚗 Not enough reputation to spawn the vehicle. You need ".. vehiclePrice .. " reputation points.")
+    local vehiclePrice = M.SpawnvehiclePrices[model] or 25  -- Use vehiclePrices table
+	
+	if player.reputation < vehiclePrice then
+        --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, " Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
+		BJCChat.onServerChat(playerID, "🚗 Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
         return 1
     end
 
     player.reputation = player.reputation - vehiclePrice
     --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.SUCCESS, " Vehicle spawned at the cost of " .. vehiclePrice .. " reputation points.")
-    BJCChat.onServerChat(playerID, "🚗 Vehicle spawned at the cost of " .. vehiclePrice .. " reputation points.")
+	BJCChat.onServerChat(playerID, "🚗 Vehicle spawned at the cost of " .. vehiclePrice .. " reputation points.")
+    -- Save the updated player data
     BJCDao.players.save(player)
 
     if vehData.jbm == "unicycle" then
         -- Special case for unicycle (walking)
         if group.vehicleCap == 0 then
-            BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.cannotSpawnVehicle")
+            --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.cannotSpawnVehicle")
+           BJCChat.onServerChat(playerID, "players.cannotSpawnVehicle")
             return 1
         elseif not BJCConfig.Data.Freeroam.AllowUnicycle or not BJCScenario.canWalk(playerID) then
-            BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.walkNotAllowed")
+            --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.walkNotAllowed")
+           BJCChat.onServerChat(playerID, "players.walkNotAllowed")
             return 1
         end
     else
         -- General vehicle spawning
         if group.vehicleCap > -1 and group.vehicleCap <= tlength(player.vehicles) then
-            BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.cannotSpawnVehicle")
+            --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.cannotSpawnVehicle")
+            BJCChat.onServerChat(playerID, "players.cannotSpawnVehicle")
             return 1
         end
 
         if tincludes(BJCVehicles.Data.ModelBlacklist, model, true) then
             if BJCPerm.isStaff(playerID) then
-                BJCTx.player.toast(playerID, BJC_TOAST_TYPES.WARNING, "players.blacklistedVehicle")
+                --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.WARNING, "players.blacklistedVehicle")
+               BJCChat.onServerChat(playerID, "players.blacklistedVehicle")
             else
-                BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.blacklistedVehicle")
+                --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, "players.blacklistedVehicle")
+                BJCChat.onServerChat(playerID, "players.blacklistedVehicle")
                 return 1
             end
         end
@@ -211,11 +211,9 @@ function _BJCOnVehicleSpawn(playerID, vehID, vehData)
         }
     end
 
-    Log(svar("Debug: Player Vehicle List Updated: {1}", { JSON.stringify(player.vehicles) }))
     BJCTx.cache.invalidate(playerID, BJCCache.CACHES.USER)
     BJCTx.cache.invalidate(BJCTx.ALL_PLAYERS, BJCCache.CACHES.PLAYERS)
 end
-
 
 --VEHICLE RESET
 function _BJCOnVehicleReset(playerID, vehID, posRot)
@@ -267,7 +265,6 @@ function _BJCOnVehicleEdited(playerID, vehID, posRot)
     BJCDao.players.save(player)
 end
 
---VEHICLE DELETED
 function _BJCOnVehicleDeleted(playerID, vehID)
     local player = BJCPlayers.Players[playerID]
     if not player then
@@ -292,7 +289,6 @@ local function initHooks()
     MP.RegisterEvent("onVehicleEdited", "_BJCOnVehicleEdited")
     MP.RegisterEvent("onVehicleDeleted", "_BJCOnVehicleDeleted")
     MP.RegisterEvent("onVehicleReset", "_BJCOnVehicleReset")
-    MP.RegisterEvent("onVehicleSwitch", "onVehicleSwitch")
 end
 
 local function setModelBlacklist(model, state)

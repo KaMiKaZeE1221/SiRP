@@ -220,6 +220,7 @@ local function initSteps(steps)
                 table.insert(nStep, {
                     name = name,
                     pos = wp.pos,
+                    zOffset = wp.zOffset,
                     rot = wp.rot,
                     radius = wp.radius,
                     parents = parents,
@@ -351,7 +352,7 @@ local function onStandStop(delayMs, wp, callback)
         BJILang.get("races.play.flashCountdownZero"))
 
     local previousCam = BJICam.getCamera()
-    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+    BJICam.setCamera(BJICam.CAMERAS.EXTERNAL)
     BJIVeh.stopCurrentVehicle()
     BJIVeh.freeze(true)
 
@@ -365,7 +366,7 @@ local function onStandStop(delayMs, wp, callback)
         BJIAsync.delayTask(function(ctxt3)
             BJIVeh.freeze(true)
             if ctxt3.camera == BJICam.CAMERAS.EXTERNAL then
-                ctxt3.camera = BJICam.CAMERAS.DRIVER
+                ctxt3.camera = BJICam.CAMERAS.ORBIT
                 BJICam.setCamera(ctxt3.camera)
             end
         end, 100, "BJIRaceCameraCheckAndFreeze")
@@ -611,12 +612,10 @@ local function initRace(ctxt, settings, raceData, testingCallback)
             BJICam.CAMERAS.BIG_MAP,
             BJICam.CAMERAS.PASSENGER,
             BJICam.CAMERAS.EXTERNAL,
-            BJICam.CAMERAS.DRIVER,
-            BJICam.CAMERAS.ORBIT,
         }, previousCam) then
-        previousCam = BJICam.CAMERAS.DRIVER
+        previousCam = BJICam.CAMERAS.ORBIT
     end
-    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+    BJICam.setCamera(BJICam.CAMERAS.EXTERNAL)
     M.race.startTime = GetCurrentTimeMillis() + 5500
 
     BJIMessage.flashCountdown("BJIRaceStart", M.race.startTime, true,
@@ -632,7 +631,7 @@ local function initRace(ctxt, settings, raceData, testingCallback)
 
     -- enable waypoints before start to avoid stutter
     BJIAsync.programTask(BJIRaceWaypoint.startRace,
-        M.race.startTime - 3000, "BJIRaceStartWaypoints")
+        M.race.startTime - 500, "BJIRaceStartWaypoints")
 
     -- on start
     BJIAsync.programTask(function()

@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Contact : https://github.com/my-name-is-samael
 ]]
 
-BJCVERSION = "1.0.7"
+BJCVERSION = "1.1.0"
 
 BJCPluginPath = debug.getinfo(1).source:gsub("\\", "/")
 BJCPluginPath = BJCPluginPath:sub(1, (BJCPluginPath:find("BeamJoyCore.lua")) - 2)
@@ -50,7 +50,7 @@ function TriggerBJCManagers(eventName, ...)
 end
 
 function _G.onInit()
-    Log(svar("Loading BeamJoyCoreModded v{1} ...", { BJCVERSION }), "BJCM")
+    Log(svar("Loading BeamJoyCore v{1} ...", { BJCVERSION }), "BJC")
 
     BJCAsync = require("managers/AsyncManager")
     BJCDefaults = require("managers/Defaults")
@@ -64,23 +64,18 @@ function _G.onInit()
     BJCPlayers = require("managers/PlayerManager")
     BJCPerm = require("managers/PermissionsManager")
     BJCMaps = require("managers/MapsManager")
-    BJCCommandManager = require("managers/CommandManager")
+    BJCCommand = require("managers/CommandManager")
     BJCVote = require("managers/VotesManager")
-	--Custom Managers
-    BJCPoor = require("managers/PoorPlayerManager")
-    --BJCFuel = require("managers/FuelManager")
-    --BJCSpeedCam = require("managers/SpeedCamManager")
-    --BJCReputation = require("managers/ReputationCostsManager")
-	--BJCHelp = require("managers/HelpManager")
     --[[BJCTx]]
     require("tx/Tx")
     BJCEnvironment = require("managers/EnvironmentManager")
     BJCTickManager = require("managers/TickManager")
+    BJCChatCommand = require("managers/ChatCommandManager")
     BJCChat = require("managers/ChatManager")
-
+    BJCPoor = require("managers/PoorPlayerManager")
     BJCScenario = require("scenarii/ScenarioManager")
 
     require("rx/Rx")
 
-     Log(svar("Loaded BeamJoyCoreModded v{1} ...", { BJCVERSION }), "BJCM")
+    Log(svar("BeamJoyCore v{1} loaded !", { BJCVERSION }), "BJC")
 end

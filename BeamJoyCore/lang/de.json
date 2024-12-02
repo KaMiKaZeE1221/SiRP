@@ -111,7 +111,8 @@
         "invalidVehicleID": "Ungültiges Fahrzeug ({vehicleID})",
         "invalidLang": "Ungültige Sprache „{lang}“",
         "insufficientPlayers": "Nicht genügend Spieler",
-        "guestCannotBeWhitelisted": "Gäste können nicht auf die Whitelist gesetzt werden"
+        "guestCannotBeWhitelisted": "Gäste können nicht auf die Whitelist gesetzt werden",
+        "playerAmbiguity": "Mehrdeutigkeit mit Spielern: {playerList}"
       },
       "vehicleRemoveOneOf": "Eines Ihrer Fahrzeuge",
       "vehicleRemoveMain": "Ihr Fahrzeug",
@@ -143,6 +144,16 @@
     "derby": {
       "winner": "{playerName} hat das Spiel gewonnen!",
       "draw": "Ziehen"
+    },
+    "commands": {
+      "title": "Befehle",
+      "aliases": "Aliasse",
+      "invalidCommand": "Ungültiger Befehl",
+      "usage": "Verwendung",
+      "helpArgs": "[Befehl]",
+      "helpDesc": "Zeige diese Nachricht an oder zeige die Hilfe für den angegebenen Befehl",
+      "pmArgs": "<Spielername> <Nachricht>",
+      "pmDesc": "Sende eine private Nachricht an jemanden (Spielername ist nicht case-sensitiv und kann ein Teilname sein)"
     }
   },
   "client": {
@@ -221,7 +232,8 @@
       "reputationTag": "RP",
       "playerJoined": "{playerName} ist beigetreten",
       "playerLeft": "{playerName} ist gegangen",
-      "directMessage": "{playerName} sendet dir: {message}"
+      "directMessage": "von {playerName}",
+      "directMessageSent": "an {playerName}"
     },
     "nametags": {
       "staffTag": "PERSONAL",
@@ -249,7 +261,8 @@
       "BJIHunterSettings": "Hunter-Spieleinstellungen",
       "BJIHunter": "Jägerspiel",
       "BJITheme": "Theme-Editor",
-      "BJIDerby": "Zerstörungsderby"
+      "BJIDerby": "Zerstörungsderby",
+      "BJIVehicleSelectorPreview": "Fahrzeugvorschau"
     },
     "menu": {
       "me": {
@@ -516,8 +529,9 @@
       "uiScale": "UI-Skala",
       "vehicles": {
         "automaticLights": "Automatische Lichter",
-        "automaticLightsTooltip": "Schalten Sie die Scheinwerfer je nach Tageszeit automatisch um.",
+        "automaticLightsTooltip": "Schalten Sie die Scheinwerfer je nach Tageszeit automatisch um",
         "driftFlashes": "Driftanzeige",
+        "driftFlashesTooltip": "Stellen Sie sicher, dass die \"Rennechtzeitanzeige\" UI-App in Ihrem Layout enthalten ist",
         "nametags": "Namensschilder der Spieler"
       },
       "freecam": {
@@ -532,7 +546,10 @@
     },
     "playersBlock": {
       "waitingPlayers": "Wartende Spieler",
-      "players": "Spieler"
+      "players": "Spieler",
+      "buttons": {
+        "voteKick": "Abstimmung Kick"
+      }
     },
     "moderationBlock": {
       "waitingPlayers": "Wartende Spieler",
@@ -628,6 +645,19 @@
           "StepDelay": "Verzögerung zwischen Schritten (Sek.)",
           "EndTimeout": "Enddauer",
           "EndTimeoutTooltip": "Zeit in Sekunden zwischen dem Ende des letzten Spielers und dem Ende des Modus"
+        },
+        "hunter": {
+          "title": "Hunter Gamemode Einstellungen",
+          "PreparationTimeout": "Vorbereitungsdauer",
+          "PreparationTimeoutTooltip": "Zeit in Sekunden, in der Spieler dem Spielmodus beitreten können",
+          "HuntedStartDelay": "Flüchtiger Startverzögerung",
+          "HuntedStartDelayTooltip": "Countdown in Sekunden für die Flüchtigen",
+          "HuntersStartDelay": "Jäger Startverzögerung",
+          "HuntersStartDelayTooltip": "Countdown in Sekunden für die Jäger",
+          "HuntedStuckTimeout": "Flüchtiger Steckenbleib-Timeout",
+          "HuntedStuckTimeoutTooltip": "Zeit in Sekunden, die der Flüchtige stecken muss, damit die Jäger gewinnen",
+          "HuntersRespawnDelay": "Jäger Respawn Verzögerung",
+          "HuntersRespawnDelayTooltip": "Zeit in Sekunden, in der Jäger nach ihrem Respawn feststecken"
         },
         "vehicleDelivery": {
           "title": "Einstellungen für die Fahrzeuglieferung",
@@ -730,6 +760,10 @@
       "quickTravel": "Schnelle Reise",
       "nametags": "Namensschilder der Spieler",
       "preserveEnergy": "Sparen Sie Kraftstoff zwischen den Resets",
+      "emergencyRefuelDuration": "Notbetankungsdauer",
+      "emergencyRefuelDurationTooltip": "Dauer des Notbetankungsprozesses in Sekunden",
+      "emergencyRefuelPercent": "Notbetankungsprozentsatz",
+      "emergencyRefuelPercentTooltip": "Prozent des Tanks, der nach dem Prozess betankt wird",
       "driftGood": "Mindestpunktzahl für gute Drifts",
       "driftBig": "Mindestpunktzahl für große Drifts",
       "allowUnicycle": "Erlauben Sie das Gehen"
@@ -767,6 +801,7 @@
         "branch": "Zweig",
         "wpName": "Name",
         "radius": "Radius",
+        "bottomHeight": "Höhe Boden",
         "parent": "Eltern)",
         "parentStartTooltip": "Sie können in den nächsten Schritten auch „Start“ verwenden, um von Anfang an zu verzweigen",
         "addParent": "Übergeordnetes Element hinzufügen",
@@ -881,10 +916,12 @@
       }
     },
     "energyStations": {
-      "noStationAvailable": "Kein {stationName} in der Nähe...",
       "flashBatteryFilled": "Batterien geladen",
       "flashTankFilled": "Tank gefüllt",
+      "flashTanksFilled": "Tanks gefüllt",
       "noRefuelScenario": "In diesem Szenario können Sie Ihr Fahrzeug nicht betanken",
+      "tanksAmount": "{amount} Tanks",
+      "emergencyRefuel": "Notbetankung",
       "edit": {
         "title": "Herausgeber von Energiestationen",
         "name": "Stationsname",
@@ -895,7 +932,6 @@
     },
     "garages": {
       "damagedWarning": "Ihr Fahrzeug ist beschädigt",
-      "noGarageAvailable": "Keine Garage in der Nähe...",
       "garage": "Garage",
       "repairBtn": "Fahrzeug reparieren",
       "flashVehicleRepaired": "Fahrzeug repariert",

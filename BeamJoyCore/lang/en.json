@@ -111,7 +111,9 @@
         "invalidVehicleID": "Invalid vehicle ({vehicleID})",
         "invalidLang": "Invalid language \"{lang}\"",
         "insufficientPlayers": "Not enough players",
-        "guestCannotBeWhitelisted": "Guests cannot be whitelisted"
+        "guestCannotBeWhitelisted": "Guests cannot be whitelisted",
+        "playerAmbiguity": "Ambiguity with players : {playerList}"
+        
       },
       "vehicleRemoveOneOf": "One of your vehicles",
       "vehicleRemoveMain": "Your vehicle",
@@ -143,6 +145,16 @@
     "derby": {
       "winner": "{playerName} won the game !",
       "draw": "Draw"
+    },
+    "commands": {
+      "title": "Commands",
+      "aliases": "Aliases",
+      "invalidCommand": "Invalid command",
+      "usage": "Usage",
+      "helpArgs": "[command]",
+      "helpDesc": "Print this message, or show the help for the specified command",
+      "pmArgs": "<player_name> <message>",
+      "pmDesc": "Send a private message to someone (player_name is insensitive and can be a subpart)"
     }
   },
   "client": {
@@ -221,7 +233,8 @@
       "reputationTag": "RP",
       "playerJoined": "{playerName} joined",
       "playerLeft": "{playerName} left",
-      "directMessage": "{playerName} sends you"
+      "directMessage": "from {playerName}",
+      "directMessageSent": "to {playerName}"
     },
     "nametags": {
       "staffTag": "STAFF",
@@ -249,7 +262,8 @@
       "BJIHunterSettings": "Hunter Game Settings",
       "BJIHunter": "Hunter Game",
       "BJITheme": "Theme Editor",
-      "BJIDerby": "Destruction Derby"
+      "BJIDerby": "Destruction Derby",
+      "BJIVehicleSelectorPreview": "Vehicle Preview"
     },
     "menu": {
       "me": {
@@ -516,8 +530,9 @@
       "uiScale": "UI scale",
       "vehicles": {
         "automaticLights": "Automatic lights",
-        "automaticLightsTooltip": "Toggle headlights automatically based on the time of day.",
+        "automaticLightsTooltip": "Toggle headlights automatically based on the time of day",
         "driftFlashes": "Drift Indicator",
+        "driftFlashesTooltip": "Be sure to have the \"Race Realtime Display\" UI App to your layout",
         "nametags": "Players nametags"
       },
       "freecam": {
@@ -532,7 +547,10 @@
     },
     "playersBlock": {
       "waitingPlayers": "Waiting players",
-      "players": "Players"
+      "players": "Players",
+      "buttons": {
+        "voteKick": "Vote Kick"
+      }
     },
     "moderationBlock": {
       "waitingPlayers": "Waiting players",
@@ -628,6 +646,19 @@
           "StepDelay": "Delay between Steps (sec)",
           "EndTimeout": "End Duration",
           "EndTimeoutTooltip": "Time in seconds between last players finish and the mode ends"
+        },
+        "hunter": {
+          "title": "Hunter Gamemode Settings",
+          "PreparationTimeout": "Preparation Duration",
+          "PreparationTimeoutTooltip": "Time in seconds during which players can join the gamemode",
+          "HuntedStartDelay": "Fugitive Start Delay",
+          "HuntedStartDelayTooltip": "Countdown in seconds for fugitives",
+          "HuntersStartDelay": "Hunters Start Delay",
+          "HuntersStartDelayTooltip": "Countdown in seconds for hunters",
+          "HuntedStuckTimeout": "Fugitive Stuck Timeout",
+          "HuntedStuckTimeoutTooltip": "Time in seconds the fugitive must be stuck for hunters to win",
+          "HuntersRespawnDelay": "Hunters Respawn Delay",
+          "HuntersRespawnDelayTooltip": "Time in seconds hunters are stuck when they respawn"
         },
         "vehicleDelivery": {
           "title": "Vehicle Delivery Settings",
@@ -730,6 +761,10 @@
       "quickTravel": "Quick travel",
       "nametags": "Players nametags",
       "preserveEnergy": "Preserve fuel between resets",
+      "emergencyRefuelDuration": "Emergency refuel duration",
+      "emergencyRefuelDurationTooltip": "Duration of emergency refueling process in seconds",
+      "emergencyRefuelPercent": "Emergency refuel percent",
+      "emergencyRefuelPercentTooltip": "Tank's percentage refueled after process",
       "driftGood": "Good drifts minimum score",
       "driftBig": "Big drifts minimum score",
       "allowUnicycle": "Allow walking"
@@ -767,6 +802,7 @@
         "branch": "Branch",
         "wpName": "Name",
         "radius": "Radius",
+        "bottomHeight": "Bottom Height",
         "parent": "Parent(s)",
         "parentStartTooltip": "You can use \"start\" in next steps to branch from the start too",
         "addParent": "Add Parent",
@@ -881,10 +917,12 @@
       }
     },
     "energyStations": {
-      "noStationAvailable": "No {stationName} around...",
       "flashBatteryFilled": "Batteries charged",
       "flashTankFilled": "Tank filled",
+      "flashTanksFilled": "Tanks filled",
       "noRefuelScenario": "You cannot refuel your vehicle in this scenario",
+      "tanksAmount": "{amount} tanks",
+      "emergencyRefuel": "Emergency refuel",
       "edit": {
         "title": "Energy Stations Editor",
         "name": "Station name",
@@ -895,7 +933,6 @@
     },
     "garages": {
       "damagedWarning": "Your vehicle is damaged",
-      "noGarageAvailable": "No Garage around...",
       "garage": "Garage",
       "repairBtn": "Repair Vehicle",
       "flashVehicleRepaired": "Vehicle repaired",

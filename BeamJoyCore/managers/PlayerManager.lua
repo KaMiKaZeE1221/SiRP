@@ -183,7 +183,8 @@ local function checkJoin(playerID)
     -- whitelist
     if BJCConfig.Data.Whitelist.Enabled and
         not tincludes(BJCConfig.Data.Whitelist.PlayerNames, player.playerName) and
-        not BJCPerm.hasMinimumGroup(playerID, BJCGroups.GROUPS.MOD) then
+        not group.whitelisted and
+        not group.staff then
         MP.DropPlayer(playerID, BJCLang.getServerMessage(playerID, "players.notWhitelisted"))
         M.Players[playerID] = nil
         return
@@ -240,11 +241,6 @@ function _BJCOnPlayerDisconnect(playerID)
 end
 
 function _BJCOnChatMessage(senderID, name, chatMessage)
-    if chatMessage:sub(1, 1) == "/" then
-        -- command
-        return -1
-    end
-
     local player = M.Players[senderID]
     if not player then
         LogError(svar(BJCLang.getConsoleMessage("players.invalidPlayer"), { playerID = senderID }))
@@ -257,6 +253,17 @@ function _BJCOnChatMessage(senderID, name, chatMessage)
         return -1
     end
 
+    chatMessage = strim(chatMessage)
+    while chatMessage:find("  ") do -- removing multiple following spaces
+        chatMessage = chatMessage:gsub("  ", " ")
+    end
+
+    -- command
+    if chatMessage:sub(1, 1) == BJCChatCommand.COMMAND_CHAR then
+        pcall(BJCChatCommand.handle, player, chatMessage:sub(2))
+        return -1
+    end
+
     if player.muted or group.muted then
         BJCChat.onServerChat(senderID, BJCLang.getServerMessage(senderID, "players.cantSendMessage"))
         return -1
@@ -266,7 +273,7 @@ function _BJCOnChatMessage(senderID, name, chatMessage)
         time = GetCurrentTime(),
         message = chatMessage
     })
-    Log("OnChatMessage", logTag)
+    Log(svar("OnChatMessage - {1} : {2}", { player.playerName, chatMessage }), "BJCChat")
     -- send to mods+ players cache invalidation
     BJCTx.cache.invalidateByPermissions(BJCCache.CACHES.PLAYERS, BJCPerm.PERMISSIONS.KICK)
 
@@ -449,11 +456,7 @@ end
 local function dropMultiple(playerIDs, reasonKey)
     for _, playerID in ipairs(playerIDs) do
         local playerName = M.Players[playerID].playerName
-        local reason
-        if reasonKey ~= nil then
-            reason = BJCLang.getServerMessage(playerID, reasonKey)
-        end
-        MP.DropPlayer(playerID, reason)
+        drop(playerID, reasonKey)
         M.Players[playerID] = nil
         BJCChat.onPlayerDisconnect(playerID, playerName)
     end
@@ -1016,10 +1019,6 @@ local function consoleSetGroup(args)
     end
 
     return svar(BJCLang.getConsoleMessage("command.groupAssigned"), { playerName = playerName, group = groupName })
-end
-
-local function init()
-    M.Data = BJCDao.vehicles.findAll()
 end
 
 M.savePlayer = savePlayer

@@ -111,7 +111,8 @@
         "invalidVehicleID": "Veículo inválido ({vehicleID})",
         "invalidLang": "Idioma inválido \"{lang}\"",
         "insufficientPlayers": "Não há jogadores suficientes",
-        "guestCannotBeWhitelisted": "Os convidados não podem ser colocados na lista de permissões"
+        "guestCannotBeWhitelisted": "Os convidados não podem ser colocados na lista de permissões",
+        "playerAmbiguity": "Ambiguidade com jogadores: {playerList}"
       },
       "vehicleRemoveOneOf": "Um de seus veículos",
       "vehicleRemoveMain": "Seu veículo",
@@ -143,6 +144,16 @@
     "derby": {
       "winner": "{playerName} ganhou o jogo!",
       "draw": "Empate"
+    },
+    "commands": {
+      "title": "Comandos",
+      "aliases": "Apelidos",
+      "invalidCommand": "Comando inválido",
+      "usage": "Uso",
+      "helpArgs": "[comando]",
+      "helpDesc": "Exibe esta mensagem ou ajuda para o comando especificado",
+      "pmArgs": "<nome_jogador> <mensagem>",
+      "pmDesc": "Envie uma mensagem privada para alguém (o nome do jogador não diferencia maiúsculas de minúsculas e pode ser uma parte)"
     }
   },
   "client": {
@@ -221,7 +232,8 @@
       "reputationTag": "PR",
       "playerJoined": "{playerName} entrou",
       "playerLeft": "{playerName} restante",
-      "directMessage": "{playerName} enviou para você: {message}"
+      "directMessage": "de {playerName}",
+      "directMessageSent": "para {playerName}"
     },
     "nametags": {
       "staffTag": "FUNCIONÁRIOS",
@@ -249,7 +261,8 @@
       "BJIHunterSettings": "Configurações do jogo de caçador",
       "BJIHunter": "Jogo de Caçador",
       "BJITheme": "Editor de Tema",
-      "BJIDerby": "Corrida de Destruição"
+      "BJIDerby": "Corrida de Destruição",
+      "BJIVehicleSelectorPreview": "Pré-visualização do veículo"
     },
     "menu": {
       "me": {
@@ -516,8 +529,9 @@
       "uiScale": "Escala da IU",
       "vehicles": {
         "automaticLights": "Luzes automáticas",
-        "automaticLightsTooltip": "Alterne os faróis automaticamente com base na hora do dia.",
+        "automaticLightsTooltip": "Alterne os faróis automaticamente com base na hora do dia",
         "driftFlashes": "Indicador de deriva",
+        "driftFlashesTooltip": "Certifique-se de ter o aplicativo \"Ecrã de corrida em tempo real\" na sua disposição",
         "nametags": "Crachás dos jogadores"
       },
       "freecam": {
@@ -532,7 +546,10 @@
     },
     "playersBlock": {
       "waitingPlayers": "Esperando jogadores",
-      "players": "Jogadores"
+      "players": "Jogadores",
+      "buttons": {
+        "voteKick": "Votar Kick"
+      }
     },
     "moderationBlock": {
       "waitingPlayers": "Esperando jogadores",
@@ -540,7 +557,7 @@
       "tempBanDuration": "Duração do TempBan",
       "vehicles": "Veículos",
       "buttons": {
-        "kick": "Chute",
+        "kick": "Kick",
         "tempBan": "Proibição temporária",
         "ban": "Proibir",
         "demoteTo": "Rebaixar para {groupName}",
@@ -628,6 +645,19 @@
           "StepDelay": "Atraso entre etapas (seg)",
           "EndTimeout": "Duração final",
           "EndTimeoutTooltip": "Tempo em segundos entre o término dos últimos jogadores e o término do modo"
+        },
+        "hunter": {
+          "title": "Configurações do Modo Hunter",
+          "PreparationTimeout": "Duração da preparação",
+          "PreparationTimeoutTooltip": "Tempo em segundos durante o qual os jogadores podem entrar no modo de jogo",
+          "HuntedStartDelay": "Atraso no início do fugitivo",
+          "HuntedStartDelayTooltip": "Contagem regressiva em segundos para os fugitivos",
+          "HuntersStartDelay": "Atraso no início dos caçadores",
+          "HuntersStartDelayTooltip": "Contagem regressiva em segundos para os caçadores",
+          "HuntedStuckTimeout": "Tempo de fuga preso",
+          "HuntedStuckTimeoutTooltip": "Tempo em segundos que o fugitivo deve ficar preso para os caçadores ganharem",
+          "HuntersRespawnDelay": "Atraso no respawn dos caçadores",
+          "HuntersRespawnDelayTooltip": "Tempo em segundos que os caçadores ficam presos ao respawn"
         },
         "vehicleDelivery": {
           "title": "Configurações de entrega de veículos",
@@ -730,6 +760,10 @@
       "quickTravel": "Viagem rápida",
       "nametags": "Crachás dos jogadores",
       "preserveEnergy": "Preservar combustível entre reinicializações",
+      "emergencyRefuelDuration": "Duração do reabastecimento de emergência",
+      "emergencyRefuelDurationTooltip": "Duração do processo de reabastecimento de emergência em segundos",
+      "emergencyRefuelPercent": "Percentual de reabastecimento de emergência",
+      "emergencyRefuelPercentTooltip": "Percentual do tanque reabastecido após o processo",
       "driftGood": "Boa pontuação mínima de drifts",
       "driftBig": "Pontuação mínima de grandes desvios",
       "allowUnicycle": "Permitir caminhar"
@@ -767,6 +801,7 @@
         "branch": "Filial",
         "wpName": "Nome",
         "radius": "Raio",
+        "bottomHeight": "Altura do fundo",
         "parent": "Pais)",
         "parentStartTooltip": "Você também pode usar \"start\" nas próximas etapas para ramificar desde o início",
         "addParent": "Adicionar pai",
@@ -881,10 +916,12 @@
       }
     },
     "energyStations": {
-      "noStationAvailable": "Não há {stationName} por perto...",
       "flashBatteryFilled": "Baterias carregadas",
       "flashTankFilled": "Tanque cheio",
+      "flashTanksFilled": "Tanques cheios",
       "noRefuelScenario": "Você não pode reabastecer seu veículo neste cenário",
+      "tanksAmount": "{amount} tanques",
+      "emergencyRefuel": "Reabastecimento de emergência",
       "edit": {
         "title": "Editor de Estações de Energia",
         "name": "Nome da estação",
@@ -895,7 +932,6 @@
     },
     "garages": {
       "damagedWarning": "Seu veículo está danificado",
-      "noGarageAvailable": "Não há garagem por perto...",
       "garage": "Garagem",
       "repairBtn": "Reparar veículo",
       "flashVehicleRepaired": "Veículo reparado",

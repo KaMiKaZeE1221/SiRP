@@ -20,21 +20,31 @@ local function reloadMarkers()
         })
     end
 
+    local hunterColor = ShapeDrawer.Color(1, 1, 0, .5)
     for i, hunter in ipairs(hEdit.hunterPositions) do
         table.insert(waypoints, {
             name = svar(BJILang.get("hunter.edit.hunterPositionName"), { index = i }),
             pos = hunter.pos,
-            radius = 1,
-            color = ShapeDrawer.Color(1, 1, 0, .5),
+            rot = hunter.rot,
+            radius = 2,
+            color = hunterColor,
+            textColor = hunterColor,
+            textBg = ShapeDrawer.Color(0, 0, 0, .5),
+            type = BJIWaypointEdit.TYPES.ARROW,
         })
     end
 
+    local huntedColor = ShapeDrawer.Color(1, 0, 0, .5)
     for i, hunted in ipairs(hEdit.huntedPositions) do
         table.insert(waypoints, {
             name = svar(BJILang.get("hunter.edit.huntedPositionName"), { index = i }),
             pos = hunted.pos,
-            radius = 1,
-            color = ShapeDrawer.Color(1, 0, 0, .5),
+            rot = hunted.rot,
+            radius = 2,
+            color = huntedColor,
+            textColor = huntedColor,
+            textBg = ShapeDrawer.Color(0, 0, 0, .5),
+            type = BJIWaypointEdit.TYPES.ARROW,
         })
     end
 
@@ -93,7 +103,7 @@ end
 local function checkEnabled()
     if hEdit.enabled then
         if #hEdit.targets < 2 or
-            #hEdit.hunterPositions <= 5 or
+            #hEdit.hunterPositions < 5 or
             #hEdit.huntedPositions < 2 then
             hEdit.enabled = false
         end
@@ -260,7 +270,7 @@ local function drawWaypoints(ctxt)
     local freecaming = ctxt.camera == BJICam.CAMERAS.FREE
     for i, waypoint in ipairs(hEdit.targets) do
         LineBuilder()
-            :text(svar(BJILang.get("hunter.edit.waypoints"), { index = i }))
+            :text(svar(BJILang.get("hunter.edit.targetName"), { index = i }))
             :btnIcon({
                 id = svar("gotoWaypoint{1}", { i }),
                 icon = ICONS.cameraFocusTopDown,

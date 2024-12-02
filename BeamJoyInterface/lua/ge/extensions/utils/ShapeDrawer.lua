@@ -1,14 +1,23 @@
 debugDrawer = debugDrawer or {
     drawSphere = function(self, pos, r, shapeColF, useZ) end,
-    drawSquarePrism = function(self, base, tip, baseSize, tipSize, shapeColF, useZ) end,
+    drawCylinder = function(self, bottomPos, topPos, radius, shapeColF, useZ) end,
+    drawSquarePrism = function(self, base, tip, baseSize, tipSize, shpaeColF, useZ) end,
     drawTextAdvanced = function(self, pos, text, textColF, useAdvancedText, twod, bgColI, shadow, useZ) end,
-    drawCylinder = function(self, bottomPos, topPos, radius, shapeColF) end, -- Added Cylinder function
 }
 
 local drawer = {}
 
 local function Color(r, g, b, a)
     return { r = r, g = g, b = b, a = a }
+end
+
+local function ColorContrasted(r, g, b, a)
+    local contrast = 0.2126 * r*r + 0.7152 * g*g + 0.0722 * b*b
+    if contrast > .3 then
+        return Color(0, 0, 0, a)
+    else
+        return Color(1, 1, 1, a)
+    end
 end
 
 local function Sphere(pos, radius, shapeColor)
@@ -64,7 +73,8 @@ local function Cylinder(bottomPos, topPos, radius, shapeColor)
     local errBottom, errTop, _
     _, bottomPos, errBottom = pcall(vec3, bottomPos)
     _, topPos, errTop = pcall(vec3, topPos)
-    if errBottom or errTop or not tonumber(radius) then
+    if errBottom or errTop or
+        not tonumber(radius) then
         -- invalid position or radius
         return
     end
@@ -75,6 +85,7 @@ local function Cylinder(bottomPos, topPos, radius, shapeColor)
 end
 
 drawer.Color = Color
+drawer.ColorContrasted = ColorContrasted
 drawer.Sphere = Sphere
 drawer.Text = Text
 drawer.SquarePrism = SquarePrism

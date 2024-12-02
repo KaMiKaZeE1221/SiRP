@@ -34,9 +34,11 @@ local function getCache(senderID)
             TeleportDelay = M.Data.Freeroam.TeleportDelay,
             QuickTravel = M.Data.Freeroam.QuickTravel,
             Nametags = M.Data.Freeroam.Nametags,
-            PreserveEnergy = M.Data.Freeroam.PreserveEnergy,
             DriftGood = M.Data.Freeroam.DriftGood,
             DriftBig = M.Data.Freeroam.DriftBig,
+            PreserveEnergy = M.Data.Freeroam.PreserveEnergy,
+            EmergencyRefuelDuration = M.Data.Freeroam.EmergencyRefuelDuration,
+            EmergencyRefuelPercent = M.Data.Freeroam.EmergencyRefuelPercent,
         }
     end
 
@@ -118,6 +120,14 @@ local function getCache(senderID)
             StepDelay = M.Data.Speed.StepDelay,
             EndTimeout = M.Data.Speed.EndTimeout,
         }
+
+        data.Hunter = {
+            PreparationTimeout = M.Data.Hunter.PreparationTimeout,
+            HuntedStartDelay = M.Data.Hunter.HuntedStartDelay,
+            HuntersStartDelay = M.Data.Hunter.HuntersStartDelay,
+            HuntedStuckTimeout = M.Data.Hunter.HuntedStuckTimeout,
+            HuntersRespawnDelay = M.Data.Hunter.HuntersRespawnDelay,
+        }
     end
 
     if BJCPerm.hasPermission(senderID, BJCPerm.PERMISSIONS.START_PLAYER_SCENARIO) or
@@ -146,7 +156,8 @@ local function hasPermissionByParentAndKey(senderID, parent, key)
     elseif parent == "Freeroam" then
         if tincludes({ "VehicleSpawning", "VehicleReset", "QuickTravel", "AllowUnicycle" }, key) then
             return BJCPerm.hasMinimumGroup(senderID, BJCGroups.GROUPS.ADMIN)
-        elseif tincludes({ "ResetDelay", "TeleportDelay", "PreserveEnergy", "DriftGood", "DriftBig", "Nametags" }, key) then
+        elseif tincludes({ "ResetDelay", "TeleportDelay", "PreserveEnergy", "DriftGood",
+                "DriftBig", "Nametags", "EmergencyRefuelDuration", "EmergencyRefuelPercent" }, key) then
             return BJCPerm.hasPermission(senderID, BJCPerm.PERMISSIONS.SET_CONFIG)
         end
     elseif parent == "Reputation" then
@@ -163,7 +174,7 @@ local function hasPermissionByParentAndKey(senderID, parent, key)
         end
     elseif parent == "CEN" then
         return BJCPerm.hasPermission(senderID, BJCPerm.PERMISSIONS.SET_CEN)
-    elseif tincludes({ "Race", "Hunter", "Speed", "Derby", "VehicleDelivery" }, parent, true) then
+    elseif tincludes({ "Race", "Speed", "Hunter", "Derby", "VehicleDelivery" }, parent, true) then
         return BJCPerm.hasPermission(senderID, BJCPerm.PERMISSIONS.SCENARIO)
     elseif parent == "Server" then
         if tincludes({ "Lang", "AllowClientMods", "Theme" }, key, true) then
@@ -178,37 +189,37 @@ end
 local function clampValue(parent, key, value)
     if parent == "VoteKick" then
         if key == "Timeout" then
-            return math.max(5, math.min(300, value))
+            return Clamp(value, 5, 300)
         elseif key == "ThresholdRatio" then
-            return math.max(0.01, math.min(1, value))
+            return Clamp(value, 0.01, 1)
         end
     elseif parent == "MapVote" then
         if key == "Timeout" then
-            return math.max(5, math.min(300, value))
+            return Clamp(value, 5, 300)
         elseif key == "ThresholdRatio" then
-            return math.max(0.01, math.min(1, value))
+            return Clamp(value, 0.01, 1)
         end
     elseif parent == "Freeroam" then
         if tincludes({ "ResetDelay", "TeleportDelay" }, key) then
-            return math.max(0, value)
+            return Clamp(value, 0)
+        elseif key == "EmergencyRefuelDuration" then
+            return Clamp(value, 5, 60)
+        elseif key == "EmergencyRefuelPercent" then
+            return Clamp(value, 5, 100)
         end
     elseif parent == "TempBan" then
         if key == "minTime" then
             return math.max(0, math.min(M.Data.TempBan.maxTime, value))
         elseif key == "maxTime" then
-            if value < 0 then
-                return 0
-            else
-                return math.max(M.Data.TempBan.minTime, value)
-            end
+            return Clamp(value, M.Data.TempBan.minTime or 0)
         end
     elseif parent == "Race" then
         if tincludes({ "PreparationTimeout", "FinishTimeout", "RaceEndTimeout", "GridReadyTimeout" }, key) then
-            return math.max(5, value)
+            return Clamp(value, 5)
         elseif tincludes({ "GridTimeout", "RaceCountdown" }, key) then
-            return math.max(10, value)
+            return Clamp(value, 10)
         elseif key == "VoteThresholdRatio" then
-            return math.max(0.01, math.min(1, value))
+            return Clamp(value, 0.01, 1)
         end
     end
     return value

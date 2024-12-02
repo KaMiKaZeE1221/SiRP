@@ -246,18 +246,16 @@ local function initGrid(data)
         if tincludes({
                 BJICam.CAMERAS.FREE,
                 BJICam.CAMERAS.BIG_MAP,
-                BJICam.CAMERAS.PASSENGER,
                 BJICam.CAMERAS.EXTERNAL,
-                BJICam.CAMERAS.DRIVER,
-                BJICam.CAMERAS.ORBIT,
+                BJICam.CAMERAS.PASSENGER
             }, M.preRaceCam) then
             -- will preserve camera for race start (if valid camera)
-            --M.preRaceCam = BJICam.CAMERAS.ORBIT
+            M.preRaceCam = BJICam.CAMERAS.ORBIT
         end
     end
 
     BJIScenario.switchScenario(BJIScenario.TYPES.RACE_MULTI)
-    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+    BJICam.setCamera(BJICam.CAMERAS.FREE)
     BJICam.setPositionRotation(M.grid.previewPosition.pos, M.grid.previewPosition.rot)
 end
 
@@ -270,7 +268,7 @@ local function tryReplaceOrSpawn(model, config)
         local pos = tpos(M.grid.participants, BJIContext.User.playerID)
         local posrot = M.grid.startPositions[pos]
         BJIVeh.replaceOrSpawnVehicle(model, config, posrot)
-        BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+        BJICam.setCamera(BJICam.CAMERAS.EXTERNAL)
         BJIVeh.freeze(true)
     end
 end
@@ -331,7 +329,7 @@ end
 
 local function onLeaveGridParticipants()
     BJIRestrictions.apply(BJIRestrictions.TYPES.Reset, false)
-    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+    BJICam.setCamera(BJICam.CAMERAS.FREE)
     BJICam.setPositionRotation(M.grid.previewPosition.pos, M.grid.previewPosition.rot)
     BJIVeh.deleteAllOwnVehicles()
     BJIVehSelector.tryClose(true)
@@ -378,6 +376,7 @@ local function initSteps(steps)
                 table.insert(nStep, {
                     name = name,
                     pos = wp.pos,
+                    zOffset = wp.zOffset,
                     rot = wp.rot,
                     radius = wp.radius,
                     parents = parents,
@@ -478,7 +477,7 @@ local function onStandStop(delayMs, wp, callback)
         BJILang.get("races.play.flashCountdownZero"))
 
     local previousCam = BJICam.getCamera()
-    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+    BJICam.setCamera(BJICam.CAMERAS.EXTERNAL)
     BJIVeh.stopCurrentVehicle()
     BJIVeh.freeze(true)
 
@@ -679,7 +678,7 @@ local function initRace(data)
                     specRandomRacer()
                 end
                 if BJICam.getCamera() == BJICam.CAMERAS.FREE then
-                    BJICam.setCamera(BJICam.CAMERAS.DRIVER)
+                    BJICam.setCamera(BJICam.CAMERAS.ORBIT)
                 end
             else
                 -- participant

@@ -135,7 +135,10 @@ local function parseCache(cacheType, cacheData, cacheHash)
         BJIContext.User.currentVehicle = cacheData.currentVehicle
         for vehID, vehicle in pairs(cacheData.vehicles) do
             if not BJIContext.User.vehicles[vehID] then
-                BJIContext.User.vehicles[vehID] = {}
+                BJIContext.User.vehicles[vehID] = {
+                    freezeStation = false,
+                    engineStation = true,
+                }
             end
             tdeepassign(BJIContext.User.vehicles[vehID], vehicle)
         end
@@ -205,6 +208,7 @@ local function parseCache(cacheType, cacheData, cacheHash)
         end
     elseif cacheType == M.CACHES.LANG then
         BJILang.Langs = cacheData.langs
+        table.sort(BJILang.Langs)
         BJILang.Messages = cacheData.messages
     elseif cacheType == M.CACHES.ENVIRONMENT then
         local previous = {
@@ -430,6 +434,10 @@ local function parseCache(cacheType, cacheData, cacheHash)
 
         if cacheData.Speed then
             bjcConf.Speed = cacheData.Speed
+        end
+
+        if cacheData.Hunter then
+            bjcConf.Hunter = cacheData.Hunter
         end
 
         if cacheData.VehicleDelivery then

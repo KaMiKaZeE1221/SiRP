@@ -4,6 +4,7 @@ local function config()
     return {
         Server = {
             Lang = "en",
+            AllowClientMods = true,
             DriftBigBroadcast = false,
             Broadcasts = {
                 delay = 120,
@@ -82,9 +83,11 @@ local function config()
             TeleportDelay = 30,
             Nametags = true,
             QuickTravel = true,
-            PreserveEnergy = false,
             DriftGood = 1000,
             DriftBig = 2000,
+            PreserveEnergy = false,
+            EmergencyRefuelDuration = 20,
+            EmergencyRefuelPercent = 30,
         },
         Reputation = {
             KmDriveReward = 3,
@@ -121,6 +124,7 @@ local function config()
             HuntedStartDelay = 0,
             HuntersStartDelay = 5,
             HuntedStuckTimeout = 10,
+            HuntersRespawnDelay = 10
         },
         Speed = {
             PreparationTimeout = 10,
@@ -164,6 +168,8 @@ end
 
 local function permissions()
     return {
+        SendPrivateMessage = 0,
+
         VoteKick = 2,
         VoteMap = 2,
         TeleportTo = 2,

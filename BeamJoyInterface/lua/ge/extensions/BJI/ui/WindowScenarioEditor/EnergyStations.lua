@@ -9,6 +9,7 @@ local function reloadMarkers()
             name = station.name,
             pos = station.pos,
             radius = station.radius,
+            type = BJIWaypointEdit.TYPES.SPHERE,
         })
     end
 
@@ -139,6 +140,7 @@ local function drawBody(ctxt)
                                 onUpdate = function(val)
                                     station.name = val
                                     esEdit.changed = true
+                                    reloadMarkers()
                                 end
                             })
                             :build()
