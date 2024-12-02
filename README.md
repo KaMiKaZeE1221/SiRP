@@ -1,3 +1,8 @@
+This adds a very basic "econony" system to BeamJoy, vehicle spawning/resetting and editing your vehicle will cost reputation points.
+I'm new to lua scripting, I don't know how far this will go. I am looking for people to help with this, feel free to add me on Discord if you want to help me add more to this.
+
+Discord - sir_kamikazee
+
 # BeamJoy
 All-in-One mod for BeamMP
 
