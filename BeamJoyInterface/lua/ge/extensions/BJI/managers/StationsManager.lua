@@ -230,6 +230,7 @@ local function tryRefillVehicle(ctxt, energyTypes, fillPercent, fillDuration)
             BJIVeh.setFuel(tankName, targetEnergy)
         end
     end, fillDuration * 1000 - 1000, "BJIStationRefillFuel")
+	BJISound.play(BJISound.SOUNDS.GAS_STATION)
     BJIAsync.delayTask(function()
         ctxt.vehData.freezeStation = false
         if not ctxt.vehData.freeze then

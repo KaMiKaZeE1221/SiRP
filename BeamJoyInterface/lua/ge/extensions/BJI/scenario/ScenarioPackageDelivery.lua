@@ -175,6 +175,7 @@ local function drawDeliveryUI(ctxt)
 end
 
 local function onTargetReached(ctxt)
+BJISound.play(BJISound.SOUNDS.MISSION_ARRIVED)
     if not ctxt.isOwner then
         M.onStopDelivery()
         return
