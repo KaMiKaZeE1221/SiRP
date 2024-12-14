@@ -56,12 +56,17 @@ local function getVoteEntry(ctxt)
         local maps = {}
         local customMapLabel = BJILang.get("menu.vote.mapCustom")
         for mapName, map in pairs(BJIContext.Maps.Data) do
-            table.insert(maps, {
-                label = map.custom and svar("{1} ({2})", { map.label, customMapLabel }) or map.label,
-                onClick = function()
-                    BJITx.votemap.start(mapName)
-                end
-            })
+            if map.enabled then
+                table.insert(maps, {
+                    label = map.custom and svar("{1} ({2})", { map.label, customMapLabel }) or map.label,
+                    active = BJIContext.UI.mapName == mapName,
+                    onClick = function()
+                        if BJIContext.UI.mapName ~= mapName then
+                            BJITx.votemap.start(mapName)
+                        end
+                    end
+                })
+            end
         end
         table.sort(maps, function(a, b)
             return a.label < b.label
@@ -542,12 +547,17 @@ local function getEditEntry(ctxt)
         local maps = {}
         local customMapLabel = BJILang.get("menu.edit.mapCustom")
         for mapName, map in pairs(BJIContext.Maps.Data) do
-            table.insert(maps, {
-                label = map.custom and svar("{1} ({2})", { map.label, customMapLabel }) or map.label,
-                onClick = function()
-                    BJITx.config.switchMap(mapName)
-                end
-            })
+            if map.enabled then
+                table.insert(maps, {
+                    label = map.custom and svar("{1} ({2})", { map.label, customMapLabel }) or map.label,
+                    active = BJIContext.UI.mapName == mapName,
+                    onClick = function()
+                        if BJIContext.UI.mapName ~= mapName then
+                            BJITx.config.switchMap(mapName)
+                        end
+                    end
+                })
+            end
         end
         table.sort(maps, function(a, b)
             return a.label < b.label

@@ -16,7 +16,7 @@ local function initTarget(pos)
         return a.distance > b.distance
     end)
     if #targets > 1 then
-        local threhsholdPos = math.ceil(#targets * .66) + 1 -- 66% furthest
+        local threhsholdPos = math.ceil(#targets * .99) + 1 -- 66% furthest
         while targets[threhsholdPos] do
             table.remove(targets, threhsholdPos)
         end
@@ -86,6 +86,7 @@ local function checkNextTarget()
 end
 
 local function reached(playerID)
+    BJCChat.onServerChat(playerID, "📦 You have successfully delivered the package!")
     if not M.participants[playerID] then
         return
     end

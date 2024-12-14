@@ -66,9 +66,6 @@ local function sanitizePlayer(player)
     if type(player.settings.automaticLights) ~= "boolean" then
         player.settings.automaticLights = true
     end
-    if type(player.settings.driftFlashes) ~= "boolean" then
-        player.settings.driftFlashes = false
-    end
     if type(player.settings.freecamSmooth) ~= "boolean" then
         player.settings.freecamSmooth = false
     end
@@ -115,7 +112,6 @@ local function instantiatePlayer(playerID)
         player.settings = {
             UIScale = 1,
             automaticLights = true,
-            driftFlashes = false,
             freecamFov = 65,
             freecamSmooth = false,
             nametags = true,
@@ -896,6 +892,7 @@ end
 local function onDeliveryVehicleSuccess(playerID, pristine)
     local self = M.Players[playerID]
     local reward = BJCConfig.Data.Reputation.DeliveryVehicleReward
+	BJCChat.onServerChat(playerID, "📦 You have successfully delivered the vehicle!")
     if pristine then
         reward = reward + BJCConfig.Data.Reputation.DeliveryVehiclePristineReward
     end
@@ -913,6 +910,7 @@ local function onDeliveryPackageSuccess(playerID)
     local streak = self.deliveryPackageStreak or 0
     local reward = BJCConfig.Data.Reputation.DeliveryPackageReward +
         streak * BJCConfig.Data.Reputation.DeliveryPackageStreakReward
+	BJCChat.onServerChat(playerID, "📦 You have successfully delivered the package!")
     M.reward(playerID, reward)
     self.deliveryPackageStreak = streak + 1
     self.stats.delivery = self.stats.delivery + 1
@@ -926,6 +924,7 @@ end
 local function onDeliveryPackageFail(playerID)
     local self = M.Players[playerID]
     self.deliveryPackageStreak = nil
+	BJCChat.onServerChat(playerID, "📦 You have failed to deliver the package!")
     self.scenario = BJCScenario.PLAYER_SCENARII.FREEROAM
 end
 

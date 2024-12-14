@@ -84,6 +84,11 @@ local function getMPOwnVehicles()
     return vehs
 end
 
+local function isVehReady(gameVehID)
+    local veh = MPVehicleGE.getOwnMap()[gameVehID]
+    return veh and veh.isSpawned and not veh.isDeleted
+end
+
 local function _getPlayerVehicleAndPosAndRotation(thenFn)
     local playerVehicle = M.getCurrentVehicle()
     if not playerVehicle then return end
@@ -649,7 +654,7 @@ local function saveCurrentVehicle()
 end
 
 -- model is optionnal
-local function getModelLabel(model)
+local function getModelLabel(model, withTechName)
     model = model or M.getCurrentModel()
     if type(model) ~= "string" then
         return nil
@@ -659,14 +664,21 @@ local function getModelLabel(model)
         M.getAllVehicleConfigs()
     end
 
+    local label
     if M.allVehicleLabels[model] then
-        return M.allVehicleLabels[model]
+        label = M.allVehicleLabels[model]
     elseif M.allTrailerLabels[model] then
-        return M.allTrailerLabels[model]
+        label = M.allTrailerLabels[model]
     elseif M.allPropLabels[model] then
-        return M.allPropLabels[model]
+        label = M.allPropLabels[model]
     end
-    return model
+    if label == model then
+        return model
+    elseif not withTechName then
+        return label
+    else
+        return svar("{1} - {2}", { model, label })
+    end
 end
 
 -- config is optionnal
@@ -814,24 +826,11 @@ local function getAllVehicleConfigs(withTrailers, withProps, forced)
                 yearsPrefix = svar(" ({1})", { veh.model.Years.min })
             end
 
-            local paints = {}
-            if veh.model.paints then
-                for label, paint in pairs(veh.model.paints) do
-                    table.insert(paints, {
-                        label = label,
-                        paint = paint,
-                    })
-                end
-            end
-            table.sort(paints, function(a, b)
-                return a.label < b.label
-            end)
-
             target[veh.model.key] = tdeepcopy(veh.model)
             tdeepassign(target[veh.model.key], {
                 label = svar("{1}{2}{3}", { brandPrefix, veh.model.Name, yearsPrefix }),
                 custom = veh.model.aggregates.Source.Mod,
-                paints = paints,
+                paints = target[veh.model.key].paints or {},
                 configs = {},
                 preview = veh.model.preview,
             })
@@ -860,15 +859,15 @@ local function getAllVehicleConfigs(withTrailers, withProps, forced)
     -- LABELS
     M.allVehicleLabels = {}
     for model, d in pairs(vehicles) do
-        M.allVehicleLabels[model] = svar("{1} - {2}", { model, d.label or model })
+        M.allVehicleLabels[model] = d.label or model
     end
     M.allTrailerLabels = {}
     for model, d in pairs(trailers) do
-        M.allTrailerLabels[model] = svar("{1} - {2}", { model, d.label or model })
+        M.allTrailerLabels[model] = d.label or model
     end
     M.allPropLabels = {}
     for model, d in pairs(props) do
-        M.allPropLabels[model] = svar("{1} - {2}", { model, d.label or model })
+        M.allPropLabels[model] = d.label or model
     end
 
     -- return cached data
@@ -1153,6 +1152,7 @@ M.onUnload = onUnload
 M.isGEInit = isGEInit
 M.getMPVehicles = getMPVehicles
 M.getMPOwnVehicles = getMPOwnVehicles
+M.isVehReady = isVehReady
 
 M.dropPlayerAtCamera = dropPlayerAtCamera
 M.dropPlayerAtCameraNoReset = dropPlayerAtCameraNoReset

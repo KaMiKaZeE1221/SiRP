@@ -4,7 +4,7 @@ local M = {
 }
 
 local function isNight()
-    return BJIEnv.Data.ToD >= .245 and BJIEnv.Data.ToD <= .76
+    return BJIEnv.Data.ToD >= .220 and BJIEnv.Data.ToD <= .80
 end
 
 local function updatePreviousVeh(gameVehID)

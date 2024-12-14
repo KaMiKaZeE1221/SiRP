@@ -165,6 +165,7 @@ local function onLoad(ctxt)
                 BJITx.scenario.DeliveryVehicleStart()
                 M.init = true
                 M.gameVehID = ctxt2.veh:getID()
+				BJISound.play(BJISound.SOUNDS.START_MISSION)
                 BJIMessage.flash("BJIDeliveryVehicleStart", BJILang.get("vehicleDelivery.flashStart"), 5, false)
             end, "BJIDeliveryVehicleInit")
     else
@@ -250,6 +251,7 @@ local function drawDeliveryUI(ctxt)
 end
 
 local function onTargetReached(ctxt)
+BJISound.play(BJISound.SOUNDS.MISSION_ARRIVED)
     if not ctxt.vehData then
         M.onStopDelivery()
         return

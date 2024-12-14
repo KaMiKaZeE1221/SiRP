@@ -180,7 +180,7 @@ local function onUnload(ctxt)
     BJIRaceWaypoint.resetAll()
     BJIRestrictions.apply(BJIRestrictions.TYPES.ResetRace, false)
     BJIRestrictions.apply(BJIRestrictions.TYPES.Reset, false)
-    BJIMessage.stopRealtimeDisplay()
+    guihooks.trigger('ScenarioResetTimer')
 end
 
 -- prepare complete race steps list
@@ -562,7 +562,7 @@ local function findFreeStartPosition(startPositions)
             if veh and v.gameVehicleID ~= BJIContext.User.currentVehicle then
                 local posRot = BJIVeh.getPositionRotation(veh)
                 if posRot and
-                    posRot.pos:distance(vec3(sp.pos)) <= veh:getInitialLength() / 2 then
+                    posRot.pos:distance(vec3(sp.pos)) <= veh:getInitialWidth() / 2 then
                     positionFree = false
                     break
                 end
@@ -662,7 +662,7 @@ local function renderTick(ctxt)
     elseif M.race.timers.lap then
         time = M.race.timers.lap:get()
     end
-    BJIMessage.realtimeDisplay("race", RaceDelay(time))
+    guihooks.trigger('raceTime', { time = Round(time / 1000, 3), reverseTime = true })
 
     -- fix vehicle position / damages on grid
     if not M.gridResetProcess and
@@ -675,21 +675,16 @@ local function renderTick(ctxt)
         local damaged = ctxt.vehData and ctxt.vehData.damageState > damageThreshold
         if moved or damaged then
             M.startPosition = findFreeStartPosition(M.baseRaceData.startPositions)
-            if M.startPosition then
-                BJIVeh.setPositionRotation(M.startPosition.pos, M.startPosition.rot)
-                BJIVeh.freeze(true, ctxt.veh:getID())
-                M.gridResetProcess = true
-                BJIAsync.task(function(ctxt2)
-                    return not ctxt2.isOwner or
-                        (ctxt2.vehPosRot.pos:distance(M.startPosition.pos) < .5 and
-                            ctxt2.vehData.damageState < damageThreshold)
-                end, function()
-                    M.gridResetProcess = false
-                end, "BJIRaceSoloGridResetProcess")
-            else
-                LogError("Unable to find a free start position")
-                stopRace()
-            end
+            BJIVeh.setPositionRotation(M.startPosition.pos, M.startPosition.rot)
+            BJIVeh.freeze(true, ctxt.veh:getID())
+            M.gridResetProcess = true
+            BJIAsync.task(function(ctxt2)
+                return not ctxt2.isOwner or
+                    (ctxt2.vehPosRot.pos:distance(M.startPosition.pos) < .5 and
+                        ctxt2.vehData.damageState < damageThreshold)
+            end, function()
+                M.gridResetProcess = false
+            end, "BJIRaceSoloGridResetProcess")
         end
     end
 

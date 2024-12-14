@@ -9,6 +9,7 @@ local M = {
         RACE_COUNTDOWN = _baseSoundsPath("race_countdown"),
         RACE_START = _baseSoundsPath("race_start"),
         RACE_WAYPOINT = _baseSoundsPath("race_waypoint"),
+        START_MISSION = _baseSoundsPath("start_mission"),
         MISSION_ARRIVED = _baseSoundsPath("mission_arrived"),
         GAS_STATION = _baseSoundsPath("gas_station"),
         REPAIR_GARAGE = _baseSoundsPath("repair_garage"),

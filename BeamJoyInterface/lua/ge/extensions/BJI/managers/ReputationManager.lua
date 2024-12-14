@@ -84,7 +84,7 @@ local function onResetOrTeleport()
 end
 
 local function onGarageRepair()
-    BJISound.play(BJISound.SOUNDS.REPAIR_GARAGE)
+BJISound.play(BJISound.SOUNDS.REPAIR_GARAGE)
     -- when repairing in a garage, exempt the next reset from resetting current distance
     M.exemptReset = true
 end

@@ -1,131 +1,5 @@
 local M = {
     Data = {},
-    SpawnvehiclePrices = {
-        ["atv"] = 0,
-        ["autobello"] = 25,
-        ["barstow"] = 25,
-        ["bastion"] = 25,
-        ["bluebuck"] = 25,
-        ["bolide"] = 25,
-        ["burnside"] = 25,
-        ["bx"] = 25,
-        ["citybus"] = 25,
-        ["covet"] = 25,
-        ["etk800"] = 25,
-        ["etkc"] = 25,
-        ["etki"] = 25,
-        ["fullsize"] = 25,
-        ["hopper"] = 25,
-        ["lansdale"] = 25,
-        ["legran"] = 25,
-        ["md_series"] = 25,
-        ["midsize"] = 25,
-        ["midtruck"] = 25,
-        ["miramar"] = 5,
-        ["moonhawk"] = 25,
-        ["pessima"] = 25,
-        ["pickup"] = 25,
-        ["pigeon"] = 0,
-        ["racetruck"] = 25,
-        ["roamer"] = 25,
-        ["rockbouncer"] = 25,
-        ["sbr"] = 25,
-        ["scintilla"] = 25,
-        ["sunburst"] = 25,
-        ["us_semi"] = 25,
-        ["utv"] = 5,
-        ["van"] = 25,
-        ["vivace"] = 25,
-        ["wendover"] = 25,
-        ["wigeon"] = 0,
-        ["talent"] = 25,
-        ["charger"] = 25,
-        ["estr34"] = 25,
-    },
-	EditvehiclePrices = {
-        ["atv"] = 0,
-        ["autobello"] = 5,
-        ["barstow"] = 5,
-        ["bastion"] = 5,
-        ["bluebuck"] = 5,
-        ["bolide"] = 5,
-        ["burnside"] = 5,
-        ["bx"] = 5,
-        ["citybus"] = 5,
-        ["covet"] = 5,
-        ["etk800"] = 5,
-        ["etkc"] = 5,
-        ["etki"] = 5,
-        ["fullsize"] = 5,
-        ["hopper"] = 5,
-        ["lansdale"] = 5,
-        ["legran"] = 5,
-        ["md_series"] = 5,
-        ["midsize"] = 5,
-        ["midtruck"] = 5,
-        ["miramar"] = 5,
-        ["moonhawk"] = 5,
-        ["pessima"] = 5,
-        ["pickup"] = 5,
-        ["pigeon"] = 0,
-        ["racetruck"] = 5,
-        ["roamer"] = 5,
-        ["rockbouncer"] = 5,
-        ["sbr"] = 5,
-        ["scintilla"] = 5,
-        ["sunburst"] = 5,
-        ["us_semi"] = 5,
-        ["utv"] = 5,
-        ["van"] = 5,
-        ["vivace"] = 5,
-        ["wendover"] = 5,
-        ["wigeon"] = 0,
-        ["talent"] = 5,
-        ["charger"] = 5,
-        ["estr34"] = 5,
-    },
-	ResetvehiclePrices = {
-        ["atv"] = 0,
-        ["autobello"] = 5,
-        ["barstow"] = 5,
-        ["bastion"] = 5,
-        ["bluebuck"] = 5,
-        ["bolide"] = 5,
-        ["burnside"] = 5,
-        ["bx"] = 5,
-        ["citybus"] = 5,
-        ["covet"] = 5,
-        ["etk800"] = 5,
-        ["etkc"] = 5,
-        ["etki"] = 5,
-        ["fullsize"] = 5,
-        ["hopper"] = 5,
-        ["lansdale"] = 5,
-        ["legran"] = 5,
-        ["md_series"] = 5,
-        ["midsize"] = 5,
-        ["midtruck"] = 5,
-        ["miramar"] = 5,
-        ["moonhawk"] = 5,
-        ["pessima"] = 5,
-        ["pickup"] = 5,
-        ["pigeon"] = 0,
-        ["racetruck"] = 5,
-        ["roamer"] = 5,
-        ["rockbouncer"] = 5,
-        ["sbr"] = 5,
-        ["scintilla"] = 5,
-        ["sunburst"] = 5,
-        ["us_semi"] = 5,
-        ["utv"] = 5,
-        ["van"] = 5,
-        ["vivace"] = 5,
-        ["wendover"] = 5,
-        ["wigeon"] = 0,
-        ["talent"] = 5,
-        ["charger"] = 5,
-        ["estr34"] = 5,
-    }
 }
 
 local function init()
@@ -154,21 +28,6 @@ function _BJCOnVehicleSpawn(playerID, vehID, vehData)
         LogError(svar(BJCLang.getConsoleMessage("players.invalidVehicleData"), { playerID = playerID }))
         return 1
     end
-
-    local model = vehData.jbm or vehData.vcf.model
-    local vehiclePrice = M.SpawnvehiclePrices[model] or 25  -- Use vehiclePrices table
-	
-	if player.reputation < vehiclePrice then
-        --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, " Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
-		BJCChat.onServerChat(playerID, "🚗 Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
-        return 1
-    end
-
-    player.reputation = player.reputation - vehiclePrice
-    --BJCTx.player.toast(playerID, BJC_TOAST_TYPES.SUCCESS, " Vehicle spawned at the cost of " .. vehiclePrice .. " reputation points.")
-	BJCChat.onServerChat(playerID, "🚗 Vehicle spawned at the cost of " .. vehiclePrice .. " reputation points.")
-    -- Save the updated player data
-    BJCDao.players.save(player)
 
     if vehData.jbm == "unicycle" then
         -- Special case for unicycle (walking)
@@ -222,12 +81,12 @@ function _BJCOnVehicleReset(playerID, vehID, posRot)
     local player = BJCPlayers.Players[playerID]
     local vehicle = player.vehicles[vehID]
     if not vehicle then return end
-
-    local vehiclePrice = M.ResetvehiclePrices[vehicle.name] or 5
+   
+    local vehiclePrice = 10
 
     if player.reputation < vehiclePrice then
 		--BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, " Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
-		BJCChat.onServerChat(playerID, "🚗 Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points.")
+		BJCChat.onServerChat(playerID, "❌ Not enough reputation to reset the vehicle. You need ".. vehiclePrice .. " reputation points. 🎭")
 		MP.RemoveVehicle(playerID, vehID, vehData)
 		_BJCOnVehicleDeleted(playerID, vehID)
         return 1		
@@ -235,32 +94,7 @@ function _BJCOnVehicleReset(playerID, vehID, posRot)
 
     player.reputation = player.reputation - vehiclePrice
 	--BJCTx.player.toast(playerID, BJC_TOAST_TYPES.INFO, " Vehicle reset at the cost of " .. vehiclePrice .. " reputation points.")
-	BJCChat.onServerChat(playerID, "🚗 Vehicle reset at the cost of " .. vehiclePrice .. " reputation points.")
-    -- Save the updated player data
-    BJCDao.players.save(player)
-end
-
---VEHICLE EDITED
-function _BJCOnVehicleEdited(playerID, vehID, posRot)
-    --posRot = JSON.parse(posRot)
-
-    local player = BJCPlayers.Players[playerID]
-    local vehicle = player.vehicles[vehID]
-    if not vehicle then return end
-
-    local vehiclePrice = M.EditvehiclePrices[vehicle.name] or 5
-
-    if player.reputation < vehiclePrice then
-		--BJCTx.player.toast(playerID, BJC_TOAST_TYPES.ERROR, " Not enough reputation to edit the vehicle. You need ".. vehiclePrice .. " reputation points.")
-		BJCChat.onServerChat(playerID, "🚗 Not enough reputation to edit the vehicle. You need ".. vehiclePrice .. " reputation points.")
-		MP.RemoveVehicle(playerID, vehID, vehData)
-		_BJCOnVehicleDeleted(playerID, vehID)
-        return 1		
-    end
-
-    player.reputation = player.reputation - vehiclePrice
-	--BJCTx.player.toast(playerID, BJC_TOAST_TYPES.INFO, " Vehicle synced and edited at the cost of " .. vehiclePrice .. " reputation points.")
-	BJCChat.onServerChat(playerID, "🚗 Vehicle synced and edited at the cost of " .. vehiclePrice .. " reputation points.")
+	BJCChat.onServerChat(playerID, "🚗 Vehicle reset at the cost of " .. vehiclePrice .. " reputation points. 🎭")
     -- Save the updated player data
     BJCDao.players.save(player)
 end

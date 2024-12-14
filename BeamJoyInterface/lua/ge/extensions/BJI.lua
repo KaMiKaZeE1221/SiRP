@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Contact : https://github.com/my-name-is-samael
 ]]
 
-BJIVERSION = "1.1.0"
+BJIVERSION = "1.1.2"
 
 local managers = {}
 function GetBJIManagers()
@@ -154,6 +154,10 @@ M.onVehicleResetted = function(gameVehID)
 end
 M.onVehicleDestroyed = function(...)
     TriggerBJIEvent("onVehicleDestroyed", ...)
+end
+
+function M.onDriftCompletedScored(...)
+    TriggerBJIEvent("onDriftCompletedScored", ...)
 end
 
 M.setPhysicsSpeed = BJIContext.setPhysicsSpeed

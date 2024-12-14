@@ -63,6 +63,7 @@ local function onLoad(ctxt)
     BJIAI.toggle(false)
     BJIGPS.reset()
     BJIRaceWaypoint.resetAll()
+	BJISound.play(BJISound.SOUNDS.START_MISSION)
 end
 
 -- player vehicle spawn hook
@@ -175,7 +176,7 @@ local function slowTick(ctxt)
         local distance = ctxt.vehPosRot.pos:distance(M.target.pos)
         if distance < M.target.radius * getRadiusMultiplier() then
             if not M.checkTargetProcess then
-                BJIMessage.flashCountdown("BJIDeliveryMultiTarget", ctxt.now + 500, false,
+                BJIMessage.flashCountdown("BJIDeliveryMultiTarget", ctxt.now + 1000, false,
                     BJILang.get("deliveryTogether.flashPackage"), nil,
                     onTargetReached)
                 M.checkTargetProcess = true

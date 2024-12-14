@@ -86,6 +86,7 @@ local function onLoad(ctxt)
             initDelivery()
 
             BJITx.scenario.DeliveryPackageStart()
+			BJISound.play(BJISound.SOUNDS.START_MISSION)
             BJIMessage.flash("BJIDeliveryPackageStart", BJILang.get("packageDelivery.flashStart"), 3, false)
             init = true
         end
@@ -233,7 +234,7 @@ local function slowTick(ctxt)
             else
                 msg = svar(BJILang.get("packageDelivery.flashPackageStreak"), { streak = streak })
             end
-            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 500, false, msg, nil,
+            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 3100, false, msg, nil,
                 onTargetReached)
             M.checkTargetProcess = true
         end

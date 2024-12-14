@@ -38,12 +38,19 @@
       "help": {
         "setgroup": "Add a player to a group",
         "setenv": "Set or reset an environment value",
-        "whitelist": "show whitelist state or set value"
+        "whitelist": "Show whitelist state or set value",
+        "map": "Switch to map",
+        "stop": "Stop server properly (warns players before kicking them, then exit)"
       },
+      "defaultReturn": "Command executed successfully",
       "envValueSetTo": "Environment value \"{key}\" set to \"{value}\"",
       "groupAssigned": "Player {playerName} assigned to group {group}",
       "showWhitelistState": "Whitelist state is {state}",
-      "newWhitelistState": "Whitelist is now {state}"
+      "newWhitelistState": "Whitelist is now {state}",
+      "stopIn": "Stopping server in {seconds} seconds",
+      "stop": "Server is stopping...",
+      "validMaps": "Valid map names: {maps}",
+      "mapSwitched": "Map switched"
     },
     "db": {
       "dbFileChanged": "File \"{dbName}\" changed",
@@ -244,7 +251,7 @@
       "selfTrailer": "Your trailer"
     },
     "windows": {
-      "BJI": "BeamJoyInterface",
+      "BJI": "SiRP Interface",
       "BJIUserSettings": "My Settings",
       "BJIEvents": "Events",
       "BJIRaceSettings": "Race Settings",
@@ -531,8 +538,6 @@
       "vehicles": {
         "automaticLights": "Automatic lights",
         "automaticLightsTooltip": "Toggle headlights automatically based on the time of day",
-        "driftFlashes": "Drift Indicator",
-        "driftFlashesTooltip": "Be sure to have the \"Race Realtime Display\" UI App to your layout",
         "nametags": "Players nametags"
       },
       "freecam": {
@@ -768,11 +773,6 @@
       "driftGood": "Good drifts minimum score",
       "driftBig": "Big drifts minimum score",
       "allowUnicycle": "Allow walking"
-    },
-    "drift": {
-      "indicator": "Drift",
-      "goodFlash": "Nice !",
-      "bigFlash": "Awesome !!!"
     },
     "races": {
       "races": "Races",
