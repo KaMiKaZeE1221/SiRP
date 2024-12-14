@@ -50,7 +50,7 @@ local function initPositions(ctxt)
         return a.distance > b.distance
     end)
     if #targets > 1 then
-        local threhsholdPos = math.ceil(#targets * .66) + 1 -- 66% furthest
+        local threhsholdPos = math.ceil(#targets * .99) + 1 -- 66% furthest
         while targets[threhsholdPos] do
             table.remove(targets, threhsholdPos)
         end
@@ -234,7 +234,7 @@ local function slowTick(ctxt)
             else
                 msg = svar(BJILang.get("packageDelivery.flashPackageStreak"), { streak = streak })
             end
-            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 3100, false, msg, nil,
+            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 500, false, msg, nil,
                 onTargetReached)
             M.checkTargetProcess = true
         end

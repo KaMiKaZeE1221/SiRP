@@ -100,7 +100,7 @@ local function initPositions()
         return a.distance > b.distance
     end)
     if #targets > 1 then
-        local threhsholdPos = math.ceil(#targets * .66) + 1 -- 66% furthest
+        local threhsholdPos = math.ceil(#targets * .99) + 1 -- 66% furthest
         while targets[threhsholdPos] do
             table.remove(targets, threhsholdPos)
         end
@@ -308,7 +308,7 @@ local function slowTick(ctxt)
     local distance = ctxt.vehPosRot.pos:distance(M.targetPosition.pos)
     if distance < M.targetPosition.radius then
         if not M.checkTargetProcess then
-            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 3100, false,
+            BJIMessage.flashCountdown("BJIDeliveryTarget", ctxt.now + 500, false,
                 BJILang.get("vehicleDelivery.flashSuccess"),
                 nil,
                 onTargetReached)
