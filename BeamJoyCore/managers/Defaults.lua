@@ -1,3 +1,6 @@
+SetLogType("Default", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Default Manager Loaded...", "Default")
+
 local M = {}
 
 local function config()

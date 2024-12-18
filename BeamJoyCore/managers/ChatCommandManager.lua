@@ -1,3 +1,6 @@
+SetLogType("Chat Commands", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Chat Command Manager Loaded...", "Chat Commands")
+
 local M = {
     COMMAND_CHAR = "/",
     commands = {},

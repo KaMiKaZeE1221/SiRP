@@ -1,3 +1,6 @@
+SetLogType("Maps", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Maps Manager Loaded...", "Maps")
+
 local M = {
     Data = {}
 }

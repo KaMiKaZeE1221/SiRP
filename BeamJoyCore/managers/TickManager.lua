@@ -1,3 +1,6 @@
+SetLogType("Tick", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Tick Manager Loaded...", "Tick")
+
 local M = {
     _ageTimer = MP.CreateTimer(),
     _autosaveTimer = 0

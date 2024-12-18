@@ -1,3 +1,6 @@
+SetLogType("Groups", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Groups Manager Loaded...", "Groups")
+
 local M = {
     Data = {},
     GROUPS = {

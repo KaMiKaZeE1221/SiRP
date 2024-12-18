@@ -1,3 +1,6 @@
+SetLogType("Votes", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Votes Manager Loaded...", "Votes")
+
 local M = {}
 
 -- KICK

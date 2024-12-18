@@ -1,3 +1,6 @@
+SetLogType("Player", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Player Manager Loaded...", "Player")
+
 local logTag = "PlayerManager"
 SetLogType(logTag, CONSOLE_COLORS.FOREGROUNDS.MAGENTA)
 
@@ -915,6 +918,34 @@ local function onDeliveryPackageSuccess(playerID)
     self.deliveryPackageStreak = streak + 1
     self.stats.delivery = self.stats.delivery + 1
     BJCTx.scenario.DeliveryPackageSuccess(playerID, self.deliveryPackageStreak)
+	
+    local milestones = {
+    [100] = "🌟 100 packages delivered without resetting, You’re a delivery legend! 👑",
+    [95]  = "🌟 95 packages delivered without resetting, Almost at 100, keep going! 🚀",
+    [90]  = "🌟 90 packages delivered without resetting, Almost there! You’re on fire! 🔥",
+    [85]  = "🌟 85 packages delivered without resetting, You’re cruising now! 🚗💨",
+    [80]  = "🌟 80 packages delivered without resetting, Look at you go! 😎",
+    [75]  = "🌟 75 packages delivered without resetting, Keep it up, you’re unstoppable! 💪",
+    [70]  = "🌟 70 packages delivered without resetting, Just 30 more until you hit the big 100! 🎯",
+    [65]  = "🌟 65 packages delivered without resetting, Can we get a ‘woot woot’?! 🎉",
+    [60]  = "🌟 60 packages delivered without resetting, You’ve got this in the bag! 🛍️",
+    [55]  = "🌟 55 packages delivered without resetting, Still going strong! 💥",
+    [50]  = "🌟 50 packages delivered without resetting, You are just better 🤷",
+    [45]  = "🌟 45 packages delivered without resetting, Wow, are you a delivery robot? 🤖",
+    [40]  = "🌟 40 packages delivered without resetting, You’re basically a professional now 🏆",
+    [35]  = "🌟 35 packages delivered without resetting, Almost halfway to legendary status! 👑",
+    [30]  = "🌟 30 packages delivered without resetting, Congrats! Can we call you the Delivery King? 👑",
+    [25]  = "🌟 25 packages delivered without resetting, Getting closer to that 30 club! 😎",
+    [20]  = "🌟 20 packages delivered without resetting, You’re on fire! 🔥",
+    [15]  = "🌟 15 packages delivered without resetting, Look at you go! 🏃‍♂️",
+    [10]  = "🌟 10 packages delivered without resetting, Double digits! You’re in the big leagues now! 💪",
+    [5]   = "🌟 5 packages delivered without resetting, Not bad for a rookie! Welcome to the club! 🥳",
+    }
+
+    local message = milestones[self.deliveryPackageStreak]
+    if message then
+    BJCChat.onServerChat(playerID, message)
+    end
 
     BJCAsync.delayTask(function()
         BJCScenario.updateDeliveryLeaderboard()
@@ -1069,6 +1100,7 @@ MP.RegisterEvent("onPlayerConnecting", "_BJCOnPlayerConnecting")
 MP.RegisterEvent("onPlayerJoining", "_BJCOnPlayerJoining")
 MP.RegisterEvent("onPlayerJoin", "_BJCOnPlayerJoin")
 MP.RegisterEvent("onPlayerDisconnect", "_BJCOnPlayerDisconnect")
+MP.RegisterEvent("onVehicleEdited", "_BJCOnVehicleEdited")
 
 MP.RegisterEvent("onChatMessage", "_BJCOnChatMessage")
 

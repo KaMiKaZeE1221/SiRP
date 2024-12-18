@@ -1,3 +1,6 @@
+SetLogType("Commands", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Commands Manager Loaded...", "Commands")
+
 local logTag = "BJCCommands"
 SetLogType(logTag, CONSOLE_COLORS.FOREGROUNDS.LIGHT_RED)
 

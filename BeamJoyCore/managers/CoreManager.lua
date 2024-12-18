@@ -1,3 +1,6 @@
+SetLogType("Core", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Core Manager Loaded...", "Core")
+
 local resourcesFolderPath = BJCPluginPath:gsub("Server/BeamJoyCore", "")
 
 local M = {

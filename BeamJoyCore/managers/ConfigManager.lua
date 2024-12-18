@@ -1,3 +1,6 @@
+SetLogType("Config", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Config Manager Loaded...", "Config")
+
 local M = {
     Data = {},
     ClientMods = nil,

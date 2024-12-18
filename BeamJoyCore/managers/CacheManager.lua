@@ -1,3 +1,6 @@
+SetLogType("Cache", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Cache Manager Loaded...", "Cache")
+
 local M = {
     CACHES = {
         -- player

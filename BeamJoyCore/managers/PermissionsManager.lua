@@ -1,3 +1,6 @@
+SetLogType("Permissions", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Permissions Manager Loaded...", "Permissions")
+
 local M = {
     PERMISSIONS = {
         SEND_PRIVATE_MESSAGE = "SendPrivateMessage",

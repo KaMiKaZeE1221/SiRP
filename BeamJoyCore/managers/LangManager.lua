@@ -1,6 +1,9 @@
 local logTag = "Lang"
 SetLogType(logTag, CONSOLE_COLORS.FOREGROUNDS.LIGHT_MAGENTA)
 
+SetLogType("Language", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Language Manager Loaded...", "Language")
+
 local langPath = svar("{1}/lang/", { BJCPluginPath })
 
 local M = {
@@ -14,7 +17,7 @@ local function loadLangs()
     for _, filename in pairs(FS.ListFiles(langPath)) do
         if filename:find(".json") then
             local lang = filename:gsub(".json", "")
-            Log(svar("Loading lang \"{1}\"", { lang }), logTag)
+            --Log(svar("Loading lang \"{1}\"", { lang }), logTag)
 
             local file, error = io.open(svar("{1}/{2}", { langPath, filename }), "r")
             if file and not error then

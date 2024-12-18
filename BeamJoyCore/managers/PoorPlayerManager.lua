@@ -1,4 +1,5 @@
-print('Poor Payment Loaded!')
+SetLogType("PPML", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Poor Player Manager Loaded...", "PPML")
 
 function onPlayerJoin(playerID)
     local player = BJCPlayers.Players[playerID]
@@ -8,6 +9,5 @@ function onPlayerJoin(playerID)
         player.reputation = player.reputation + 100
         BJCTx.player.toast(playerID, BJC_TOAST_TYPES.SUCCESS, " Welcome! You have been given 100 reputation points for having less than 10 reputation points.")
         BJCDao.players.save(player)  -- Save the updated player data
-		print("Player data saved giving poor payment")
     end
 end

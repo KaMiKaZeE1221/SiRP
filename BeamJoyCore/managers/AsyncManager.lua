@@ -1,3 +1,6 @@
+SetLogType("Async", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Async Manager Loaded...", "Async")
+
 local M = {
     tasks = {},
     delayedTasks = {},

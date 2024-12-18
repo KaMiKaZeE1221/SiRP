@@ -1,3 +1,6 @@
+SetLogType("Vehicles", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Vehicles Manager Loaded...", "Vehicles")
+
 local M = {
     Data = {},
 }

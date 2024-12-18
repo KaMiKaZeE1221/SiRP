@@ -1,3 +1,6 @@
+SetLogType("Enviroment", CONSOLE_COLORS.FOREGROUNDS.GREEN)
+Log("Enviroment Manager Loaded...", "Enviroment")
+
 local M = {
     Data = {},
     TYPES = {
